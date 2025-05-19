@@ -1,0 +1,86 @@
+@import "../../node_modules/tailwindcss";
+@tailwind utilities;
+@layer utilities {
+  .clamp {
+    padding-right: clamp(16px, 15vw, 200px);
+    padding-left: clamp(16px, 15vw, 200px);
+  }
+}
+@layer base {
+  @font-face {
+    font-family: "roboto";
+    src: url("../fonts/Roboto-VariableFont_wdth,wght.ttf") format("truetype");
+  }
+}
+* {
+  font-family: "roboto", serif;
+}
+.app {
+  @apply min-h-screen flex flex-col;
+}
+/*=====================================================================================*/
+header,
+footer {
+  @apply h-[100px] bg-[var(--clr-secondary)] flex items-center;
+}
+/*=====================================================================================*/
+
+.button {
+  @apply bg-[var(--clr-secondary)] text-[var(--clr-primary)] py-2 border-[var(--clr-primary)] border-1  rounded-[10px] w-100;
+}
+.button:focus {
+  @apply bg-[var(--clr-focus)];
+}
+.button:active {
+  @apply bg-[var(--clr-button-hover)] scale-95 transition duration-100;
+}
+.button:disabled {
+  @apply bg-[var(--clr-button-disabled)] text-[var(--clr-primary)];
+}
+.button:disabled:hover {
+  @apply bg-[var(--clr-button-disabled)] text-[var(--clr-primary)];
+}
+button:hover {
+  @apply bg-[var(--clr-button-hover)] transition duration-150;
+}
+/*=====================================================================================*/
+.question {
+  @apply w-full py-5;
+}
+/*=====================================================================================*/
+
+.answer{
+  @apply w-full py-5 flex flex-col justify-center my-5 gap-y-3;
+}
+.input-style{
+  @apply appearance-none w-4 h-4 border-2 border-[var(--clr-secondary)] rounded-full checked:bg-[var(--clr-secondary)] checked:border-[var(--clr-secondary)] transition
+}
+/*=====================================================================================*/
+
+.result-container{
+  @apply bg-[var(--clr-main)] border border-[var(--clr-secondary)] rounded-2xl p-6 text-center shadow-md mt-3;
+}
+/*=====================================================================================*/
+
+.user-survey-form{
+  @apply bg-white max-w-md mx-auto mt-10 p-6 rounded-xl shadow-md;
+}
+.user-survey-form__input{
+  @apply mt-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[var(--clr-secondary)] focus:border-transparent
+}
+.user-survey-form__label{
+  @apply flex items-center gap-x-2
+}
+:root {
+  --clr-primary: #ffffff;
+  --clr-secondary: #a3c9f9;
+  --clr-button: #82b1f3;
+  --clr-button-hover: #5a9eea;
+  --clr-button-disabled: #d0e3f9;
+  --clr-focus: #6faef5;
+  --clr-success: #6dd3c6;
+  --clr-warning: #fcd34d;
+  --clr-danger: #fca5a5;
+  --clr-main: #f0f8ff;
+}
+
