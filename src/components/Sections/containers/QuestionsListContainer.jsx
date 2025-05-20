@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import Button from "../ui/Button.jsx";
-import Result from "../ui/Result.jsx";
+import Button from "../../ui/Button.jsx";
+import Result from "../../survey/Result.jsx";
 import { BUTTONS_TEXT } from "../../../constants/buttons.js";
-import Question from "../ui/Question.jsx";
+import Question from "../../survey/Question.jsx";
 
 const QuestionsListContainer = ({ questions, results, answers }) => {
   const [questionResponses, setQuestionResponses] = useState({});

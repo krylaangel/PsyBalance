@@ -9,7 +9,7 @@
 @layer base {
   @font-face {
     font-family: "roboto";
-    src: url("../fonts/Roboto-VariableFont_wdth,wght.ttf") format("truetype");
+    src: url("../assets/fonts/Roboto-VariableFont_wdth,wght.ttf") format("truetype");
   }
 }
 * {
@@ -66,10 +66,13 @@ button:hover {
   @apply bg-white max-w-md mx-auto mt-10 p-6 rounded-xl shadow-md;
 }
 .user-survey-form__input{
-  @apply mt-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[var(--clr-secondary)] focus:border-transparent
+  @apply w-full mt-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[var(--clr-secondary)] focus:border-transparent
 }
 .user-survey-form__label{
-  @apply flex items-center gap-x-2
+  @apply flex flex-col items-center gap-x-2
+}
+.error-message{
+  @apply bg-[var(--clr-danger)] text-white text-sm mt-1 w-full p-2 rounded-md
 }
 :root {
   --clr-primary: #ffffff;
