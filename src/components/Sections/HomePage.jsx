@@ -1,6 +1,7 @@
 import Test from "./Test.jsx";
+import PostsList from "./PostsList.jsx";
 
 const Sections = () => {
-  return <Test />;
+  return <PostsList />;
 };
 export default Sections;
