@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import Button from "../../ui/Button.jsx";
-import Result from "../../survey/Result.jsx";
-import { BUTTONS_TEXT } from "../../../constants/buttons.js";
-import Question from "../../survey/Question.jsx";
+
+import { BUTTONS_TEXT } from "@/constants/buttons.js";
+import Button from "@/components/ui/Button.jsx";
+import Question from "@/components/survey/Question.jsx";
+import Result from "@/components/survey/Result.jsx";
 
 const QuestionsListContainer = ({ questions, results, answers }) => {
   const [questionResponses, setQuestionResponses] = useState({});
@@ -34,7 +35,7 @@ const QuestionsListContainer = ({ questions, results, answers }) => {
   };
 
   return (
-    <div className="">
+    <div className="user-survey-form mt-10">
       <Question
         currentQuestion={currentQuestion}
         questionResponses={questionResponses}
@@ -45,7 +46,7 @@ const QuestionsListContainer = ({ questions, results, answers }) => {
         disabled={!isCurrentQuestionAnswered}
         text={
           currentQuestionIndex < questions.length - 1
-            ? BUTTONS_TEXT.Next
+            ? BUTTONS_TEXT.NextQuestion
             : BUTTONS_TEXT.ClickUp
         }
         onClick={handleButtonClick}

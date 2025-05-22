@@ -1,9 +1,9 @@
-import InputField from "../ui/InputField.jsx";
 import { useEffect, useState } from "react";
-import { validateForm } from "../../utils/validateForm.js";
-import Button from "../ui/Button.jsx";
-import { BUTTONS_TEXT } from "../../constants/buttons.js";
 import { useNavigate } from "react-router";
+import { validateForm } from "@/utils/validateForm.js";
+import { BUTTONS_TEXT } from "@/constants/buttons.js";
+import Button from "@/components/ui/Button.jsx";
+import InputField from "@/components/ui/InputField.jsx";
 
 const ControlledFormAuth = () => {
   const [email, setEmail] = useState("");

@@ -2,8 +2,8 @@
 @tailwind utilities;
 @layer utilities {
   .clamp {
-    padding-right: clamp(16px, 15vw, 200px);
-    padding-left: clamp(16px, 15vw, 200px);
+    padding-right: clamp(10px, 10vw, 200px);
+    padding-left: clamp(10px, 10vw, 200px);
   }
 }
 @layer base {
@@ -23,10 +23,13 @@ header,
 footer {
   @apply h-[100px] bg-[var(--clr-secondary)] flex items-center;
 }
+.menu-item{
+  @apply font-normal text-white text-sm md:text-base uppercase hover:text-[var(--clr-button-hover)] hover:border-b cursor-pointer hover:border-[var(--clr-button-hover)]
+}
 /*=====================================================================================*/
 
 .button {
-  @apply bg-[var(--clr-secondary)] text-[var(--clr-primary)] py-2 border-[var(--clr-primary)] border-1  rounded-[10px] w-100;
+  @apply w-full bg-[var(--clr-secondary)] text-[var(--clr-primary)] py-2 border-[var(--clr-primary)] border-1  rounded-[10px] w-100;
 }
 .button:focus {
   @apply bg-[var(--clr-focus)];
@@ -45,12 +48,12 @@ button:hover {
 }
 /*=====================================================================================*/
 .question {
-  @apply w-full py-5;
+  @apply w-full text-lg font-normal;
 }
 /*=====================================================================================*/
 
 .answer{
-  @apply w-full py-5 flex flex-col justify-center my-5 gap-y-3;
+  @apply w-full flex flex-col justify-center my-4 gap-y-3;
 }
 .input-style{
   @apply appearance-none w-4 h-4 border-2 border-[var(--clr-secondary)] rounded-full checked:bg-[var(--clr-secondary)] checked:border-[var(--clr-secondary)] transition
@@ -61,6 +64,20 @@ button:hover {
   @apply bg-[var(--clr-main)] border border-[var(--clr-secondary)] rounded-2xl p-6 text-center shadow-md mt-3;
 }
 /*=====================================================================================*/
+.page{
+  @apply p-4 border border-gray-200 rounded-lg hover:shadow transition-shadow space-y-3
+}
+.page__title{
+  @apply text-lg font-semibold text-gray-900
+}
+.page__category{
+  @apply text-sm text-gray-400
+}
+.page__description{
+  @apply text-gray-700
+}
+/*=====================================================================================*/
+
 
 .user-survey-form{
   @apply bg-white max-w-md mx-auto mt-10 p-6 rounded-xl shadow-md;

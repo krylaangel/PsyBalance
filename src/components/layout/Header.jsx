@@ -1,6 +1,4 @@
 import { useNavigate } from "react-router";
-import { BUTTONS_TEXT } from "../../constants/buttons.js";
-import Button from "../ui/Button.jsx";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -11,15 +9,16 @@ const Header = () => {
     navigate("/Test");
   };
   return (
-    <header className="clamp">
-      <ul>
-        <li></li>
+    <header className="clamp flex justify-between">
+      <div>Logo</div>
+      <ul className="flex gap-x-10 hidden md:flex">
+        <li onClick={toggleTest} className="menu-item">
+          Тести
+        </li>
+        <li className="menu-item">Статті</li>
+        <li className="menu-item">Психологи</li>
       </ul>
-      <Button
-        type="button"
-        onClick={toggleTest}
-        text={BUTTONS_TEXT.Navigate}
-      ></Button>
+
       <button
         onClick={toggleForm}
         className="p-2 rounded-full bg-white hover:bg-[var(--clr-secondary:)] shadow-md transition duration-200 flex items-center justify-center"

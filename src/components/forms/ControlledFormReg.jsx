@@ -1,9 +1,9 @@
-import Button from "../ui/Button.jsx";
-import { BUTTONS_TEXT } from "../../constants/buttons.js";
+import { BUTTONS_TEXT } from "@/constants/buttons.js";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import InputField from "../ui/InputField.jsx";
-import { validateForm } from "../../utils/validateForm.js";
+import { validateForm } from "@/utils/validateForm.js";
+import Button from "@/components/ui/Button.jsx";
+import InputField from "@/components/ui/InputField.jsx";
 
 const ControlledFormReg = () => {
   const [firstName, setFirstName] = useState("");
@@ -32,7 +32,7 @@ const ControlledFormReg = () => {
   }, [firstName, lastName, email, password]);
 
   return (
-    <div className="user-survey-form">
+    <div className="user-survey-form mb-5">
       <form className="flex flex-col gap-y-4" onSubmit={handleSubmit}>
         <InputField
           label="Ім'я"
