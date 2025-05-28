@@ -1,9 +1,16 @@
 import React from "react";
-
-const Button = ({ text, onClick, disabled, type = "button", ...props }) => {
+import styles from "./Button.module.css";
+const Button = ({
+  text,
+  onClick,
+  disabled,
+  className = "",
+  type = "button",
+  ...props
+}) => {
   return (
     <button
-      className="button"
+      className={`${styles.button} ${className}`}
       type={type}
       onClick={onClick}
       disabled={disabled}

@@ -2,8 +2,8 @@ import { BUTTONS_TEXT } from "@/constants/buttons.js";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { validateForm } from "@/utils/validateForm.js";
-import Button from "@/components/ui/Button.jsx";
-import InputField from "@/components/ui/InputField.jsx";
+import Button from "@/components/ui/buttons/Button.jsx";
+import InputField from "@/components/ui/inputFields/InputField.jsx";
 
 const ControlledFormReg = () => {
   const [firstName, setFirstName] = useState("");

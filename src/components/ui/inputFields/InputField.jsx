@@ -1,3 +1,5 @@
+import styles from "./InputField.module.css";
+
 const InputField = ({
   className = "",
   type,
@@ -13,10 +15,10 @@ const InputField = ({
   ref,
 }) => {
   return (
-    <label className={`user-survey-form__label ${className}`}>
+    <label className={`${styles.userSurveyFormLabel} ${className}`}>
       {label}
       <input
-        className={`user-survey-form__input ${className}`}
+        className={`${styles.userSurveyFormInput} ${className}`}
         type={type}
         name={name}
         id={id}
@@ -27,7 +29,7 @@ const InputField = ({
         onChange={onChange}
         ref={ref}
       />
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
+      {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
     </label>
   );
 };
