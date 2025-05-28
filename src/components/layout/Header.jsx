@@ -1,24 +1,37 @@
-import { useNavigate } from "react-router";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const Header = () => {
   const navigate = useNavigate();
   const toggleForm = () => {
     navigate("/ControlledFormAuth");
   };
-  const toggleTest = () => {
-    navigate("/Test");
-  };
+
   return (
     <header className="clamp flex justify-between">
       <div>Logo</div>
       <ul className="flex gap-x-10 hidden md:flex">
-        <li onClick={toggleTest} className="menu-item">
-          Тести
+        <li>
+          <NavLink
+            to="/TestPage"
+            className={({ isActive }) =>
+              isActive ? "menu-item active" : "menu-item"
+            }
+          >
+            Тести
+          </NavLink>
         </li>
-        <li className="menu-item">Статті</li>
-        <li className="menu-item">Психологи</li>
+        <li>
+          <NavLink
+            to="/posts"
+            className={({ isActive }) =>
+              isActive ? "menu-item active" : "menu-item"
+            }
+          >
+            {" "}
+            Статті
+          </NavLink>
+        </li>
       </ul>
-
       <button
         onClick={toggleForm}
         className="p-2 rounded-full bg-white hover:bg-[var(--clr-secondary:)] shadow-md transition duration-200 flex items-center justify-center"

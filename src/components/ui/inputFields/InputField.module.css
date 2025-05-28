@@ -1,0 +1,12 @@
+@import "../../../../node_modules/tailwindcss";
+@tailwind utilities;
+
+.userSurveyFormInput{
+    @apply w-full mt-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[var(--clr-secondary)] focus:border-transparent
+}
+.userSurveyFormLabel{
+    @apply flex flex-col items-center gap-x-2
+}
+.errorMessage{
+    @apply bg-[var(--clr-danger)] text-white text-sm mt-1 w-full p-2 rounded-md
+}

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import { BUTTONS_TEXT } from "@/constants/buttons.js";
-import Button from "@/components/ui/Button.jsx";
+import Button from "@/components/ui/buttons/Button.jsx";
 import Question from "@/components/survey/Question.jsx";
 import Result from "@/components/survey/Result.jsx";
 

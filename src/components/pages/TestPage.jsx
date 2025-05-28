@@ -2,8 +2,8 @@ import React from "react";
 import { QuestionsPHQ9 } from "@/constants/questionsPHQ9.js";
 import { ResultsPHQ9 } from "@/constants/resultsPHQ9.js";
 import { AnswersPHQ9 } from "@/constants/answersPHQ9.js";
-import QuestionsListContainer from "@/components/Sections/containers/QuestionsListContainer.jsx";
-const Test = () => {
+import QuestionsListContainer from "@/components/containers/QuestionsListContainer.jsx";
+const TestPage = () => {
   return (
     <div className="flex flex-col items-start">
       <QuestionsListContainer
@@ -14,4 +14,4 @@ const Test = () => {
     </div>
   );
 };
-export default Test;
+export default TestPage;

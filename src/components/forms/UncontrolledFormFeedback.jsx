@@ -1,7 +1,7 @@
 import { BUTTONS_TEXT } from "@/constants/buttons.js";
 import { useRef } from "react";
-import InputField from "@/components/ui/InputField.jsx";
-import Button from "@/components/ui/Button.jsx";
+import InputField from "@/components/ui/inputFields/InputField.jsx";
+import Button from "@/components/ui/buttons/Button.jsx";
 
 const UncontrolledFormFeedback = () => {
   const feedbackRef = useRef(null);

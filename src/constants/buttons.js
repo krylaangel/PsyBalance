@@ -11,4 +11,5 @@ export const BUTTONS_TEXT = {
   Details: "Детальніше",
   Next: "Наступна",
   Previous: "Попередня",
+  Post: "Всі статті",
 };

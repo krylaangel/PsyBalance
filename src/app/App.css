@@ -26,26 +26,12 @@ footer {
 .menu-item{
   @apply font-normal text-white text-sm md:text-base uppercase hover:text-[var(--clr-button-hover)] hover:border-b cursor-pointer hover:border-[var(--clr-button-hover)]
 }
+.menu-item.active {
+  @apply font-bold text-[var(--clr-button-hover)] border-b-2 border-[var(--clr-button-hover)];
+}
 /*=====================================================================================*/
 
-.button {
-  @apply w-full bg-[var(--clr-secondary)] text-[var(--clr-primary)] py-2 border-[var(--clr-primary)] border-1  rounded-[10px] w-100;
-}
-.button:focus {
-  @apply bg-[var(--clr-focus)];
-}
-.button:active {
-  @apply bg-[var(--clr-button-hover)] scale-95 transition duration-100;
-}
-.button:disabled {
-  @apply bg-[var(--clr-button-disabled)] text-[var(--clr-primary)];
-}
-.button:disabled:hover {
-  @apply bg-[var(--clr-button-disabled)] text-[var(--clr-primary)];
-}
-button:hover {
-  @apply bg-[var(--clr-button-hover)] transition duration-150;
-}
+
 /*=====================================================================================*/
 .question {
   @apply w-full text-lg font-normal;
@@ -78,19 +64,10 @@ button:hover {
 }
 /*=====================================================================================*/
 
-
 .user-survey-form{
   @apply bg-white max-w-md mx-auto mt-10 p-6 rounded-xl shadow-md;
 }
-.user-survey-form__input{
-  @apply w-full mt-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[var(--clr-secondary)] focus:border-transparent
-}
-.user-survey-form__label{
-  @apply flex flex-col items-center gap-x-2
-}
-.error-message{
-  @apply bg-[var(--clr-danger)] text-white text-sm mt-1 w-full p-2 rounded-md
-}
+/*=====================================================================================*/
 :root {
   --clr-primary: #ffffff;
   --clr-secondary: #a3c9f9;

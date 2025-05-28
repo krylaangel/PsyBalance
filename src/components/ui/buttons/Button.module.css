@@ -1,0 +1,18 @@
+@import "../../../../node_modules/tailwindcss";
+@tailwind utilities;
+.button {
+    @apply w-full bg-[var(--clr-secondary)] text-[var(--clr-primary)] py-2 border-[var(--clr-primary)] border-1  rounded-[10px] w-full;
+}
+
+.button:active {
+    @apply bg-[var(--clr-button-hover)] scale-95 transition duration-100;
+}
+.button:disabled {
+    @apply bg-[var(--clr-button-disabled)] text-[var(--clr-primary)];
+}
+.button:disabled:hover {
+    @apply bg-[var(--clr-button-disabled)] text-[var(--clr-primary)];
+}
+.button:hover {
+    @apply bg-[var(--clr-button-hover)] transition duration-150;
+}
