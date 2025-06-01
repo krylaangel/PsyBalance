@@ -2,15 +2,13 @@ import "./App.css";
 import { BrowserRouter } from "react-router";
 import Header from "@/components/layout/Header.jsx";
 import Footer from "@/components/layout/Footer.jsx";
-
-import { TotalProvider } from "@/context/TotalContext.jsx";
-
 import RoutesApp from "@/app/RoutesApp.jsx";
+import { AuthProvider } from "@/context/AuthContext.jsx";
 
 function App() {
   return (
     <div className="app">
-      <TotalProvider>
+      <AuthProvider>
         <BrowserRouter>
           <Header />
           <main className="flex-grow clamp">
@@ -18,7 +16,7 @@ function App() {
           </main>
           <Footer />
         </BrowserRouter>
-      </TotalProvider>
+      </AuthProvider>
     </div>
   );
 }

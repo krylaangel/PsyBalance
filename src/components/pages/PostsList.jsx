@@ -2,12 +2,12 @@ import { useNavigate, useSearchParams } from "react-router";
 import PostSection from "@/components/Sections/PostSection.jsx";
 import PostSkeleton from "@/components/ui/PostSkeleton.jsx";
 import { ERRORS_MESSAGE } from "@/constants/errorStyle.js";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { useTotal } from "@/context/TotalContext.jsx";
+import { useCallback, useEffect, useState } from "react";
 import Button from "@/components/ui/buttons/Button.jsx";
 import { renderPageNumbers } from "@/utils/renderPageNumbers.js";
 import { PAGINATION_LIMIT } from "@/constants/pagination.js";
+import { useTotalStore } from "@/store/useTotalStore.js";
+import { PostsService } from "@/service/PostsService.js";
 
 const PostsList = () => {
   const navigate = useNavigate();
@@ -15,45 +15,48 @@ const PostsList = () => {
   const [error, setError] = useState(null);
   const [products, setProducts] = useState([]);
   let [searchParams, setSearchParams] = useSearchParams();
-  const page = parseInt(searchParams.get("page")) || 1;
+  const page = parseInt(searchParams.get("page"), 10) || 1;
   const limit = PAGINATION_LIMIT;
-  const { total } = useTotal();
+  const { total, fetchTotal } = useTotalStore();
+  const totalPages = Math.ceil(total / limit);
+
   const togglePostPage = (id) => {
     navigate(`/post/${id}`);
   };
   const handleDetails = (id) => {
     togglePostPage(id);
   };
-  const handlePageChange = (newPage) => {
-    setSearchParams({ page: String(newPage) });
-  };
+  const handlePageChange = useCallback(
+    (newPage) => {
+      setSearchParams({ page: String(newPage) });
+    },
+    [setSearchParams],
+  );
 
   useEffect(() => {
-    const FetchData = async () => {
-      try {
-        setLoading(true);
-        const response = await axios.get(
-          `https://dummyjson.com/products?limit=${limit}&skip=${(page - 1) * limit}`,
-        );
-        setProducts(response.data.products);
-      } catch (error) {
-        setError(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    FetchData();
-  }, [limit, page]);
-  const totalPages = Math.ceil(total / limit);
-  if (page < 1) {
-    handlePageChange(1);
-    return null;
-  }
+    if (total === 0) {
+      fetchTotal().catch(setError);
+    }
+  }, [fetchTotal, total]);
 
-  if (total > 0 && page > totalPages) {
-    handlePageChange(totalPages);
-    return null;
-  }
+  useEffect(() => {
+    setLoading(true);
+    PostsService.fetchPosts(page, limit)
+      .then(setProducts)
+      .catch(setProducts)
+      .finally(() => setLoading(false));
+  }, [limit, page]);
+
+  useEffect(() => {
+    if (page < 1) {
+      handlePageChange(1);
+      return null;
+    } else if (total > 0 && page > totalPages) {
+      handlePageChange(totalPages);
+      return null;
+    }
+  }, [handlePageChange, page, total, totalPages]);
+
   return (
     <div className="max-w-xl mx-auto p-6 bg-white rounded-2xl shadow-md my-10">
       <h2 className="text-2xl font-bold mb-4 text-gray-800">Список тестів</h2>
