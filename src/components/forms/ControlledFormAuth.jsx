@@ -4,18 +4,34 @@ import { validateForm } from "@/utils/validateForm.js";
 import { BUTTONS_TEXT } from "@/constants/buttons.js";
 import Button from "@/components/ui/buttons/Button.jsx";
 import InputField from "@/components/ui/inputFields/InputField.jsx";
+import { useAuth } from "@/context/AuthContext.jsx";
 
 const ControlledFormAuth = () => {
+  const { login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [submitForm, setSubmitForm] = useState(null);
   const [errorMessage, setErrorMessage] = useState({});
   const navigate = useNavigate();
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitForm({ email, password });
-    setEmail("");
-    setPassword("");
+    console.log("handleSubmit called");
+    setSubmitForm(null);
+    const errors = validateForm({ email, password });
+    console.log("validateForm errors:", errors);
+
+    setErrorMessage(errors);
+    if (Object.keys(errors).length === 0) {
+      console.log("kkkkk");
+      try {
+        await login({ email, password });
+        setSubmitForm({ email, password });
+        alert("Успішний вхід!");
+        navigate("/");
+      } catch (error) {
+        setErrorMessage({ global: error.message });
+      }
+    }
   };
 
   useEffect(() => {
@@ -45,10 +61,9 @@ const ControlledFormAuth = () => {
           id="password"
           value={password}
           placeholder="Пароль"
-          errorMessage={errorMessage.password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <Button type="submit" text={BUTTONS_TEXT.Submit}></Button>
+        <Button type="submit" text={BUTTONS_TEXT.Auth}></Button>
         <Button
           type="button"
           onClick={toggleReg}

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 import { validateForm } from "@/utils/validateForm.js";
 import Button from "@/components/ui/buttons/Button.jsx";
 import InputField from "@/components/ui/inputFields/InputField.jsx";
+import { useAuth } from "@/context/AuthContext.jsx";
 
 const ControlledFormReg = () => {
   const [firstName, setFirstName] = useState("");
@@ -13,16 +14,29 @@ const ControlledFormReg = () => {
   const [password, setPassword] = useState("");
   const [submitForm, setSubmitForm] = useState(null);
   const [errorMessage, setErrorMessage] = useState({});
+  const { register } = useAuth();
 
   const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
-    setSubmitForm({ firstName, lastName, year, email, password });
-    setFirstName("");
-    setLastName("");
-    setYear("");
-    setEmail("");
-    setPassword("");
+    setSubmitForm(null);
+    const errors = validateForm({ firstName, lastName, email, password });
+    setErrorMessage(errors);
+    if (Object.keys(errors).length === 0) {
+      try {
+        register({ firstName, lastName, email, year, password });
+        alert("Реєстрація успішна!");
+        setSubmitForm({ firstName, lastName, year, email, password });
+        navigate("/");
+        setFirstName("");
+        setLastName("");
+        setYear("");
+        setEmail("");
+        setPassword("");
+      } catch (error) {
+        setErrorMessage({ global: error.message });
+      }
+    }
   };
   const toggleAuth = () => {
     navigate("/ControlledFormAuth");
@@ -68,7 +82,7 @@ const ControlledFormReg = () => {
           label="Рік народження"
           type="number"
           name="year"
-          id="emyearail"
+          id="year"
           value={year}
           min="1900"
           max="2025"
@@ -93,7 +107,9 @@ const ControlledFormReg = () => {
           text={BUTTONS_TEXT.Auth}
         ></Button>
       </form>
-
+      {errorMessage.global && (
+        <p className="text-red-500 font-medium">{errorMessage.global}</p>
+      )}
       {submitForm && (
         <div className="mt-3">
           <p>{submitForm.firstName}</p>
