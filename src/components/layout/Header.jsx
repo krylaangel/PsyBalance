@@ -1,23 +1,32 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import { useAuth } from "@/context/AuthContext.jsx";
+import Button from "@/components/ui/buttons/Button.jsx";
+import { BUTTONS_TEXT } from "@/constants/buttons.js";
+import { useAuthStore } from "@/store/useAuthStore.js";
 
 const Header = () => {
-  const { user, logout } = useAuth();
+  const logout = useAuthStore((state) => state.logout);
+  const user = useAuthStore((state) => state.user);
+
   const navigate = useNavigate();
+
   const toggleForm = () => {
     navigate("/ControlledFormAuth");
   };
+
   const handleLogout = () => {
     logout();
     navigate("/ControlledFormAuth");
   };
+
   return (
-    <header className="clamp flex justify-between">
-      <div>Logo</div>
-      <ul className="flex gap-x-10 hidden md:flex">
-        <li>
+    <header className="clamp flex justify-between gradient-layout__header">
+      <NavLink to="/" className="menu-item">
+        Головна
+      </NavLink>
+      <ul className="flex hidden md:flex">
+        <li className="pr-10">
           <NavLink
-            to="/TestPage"
+            to="/tests"
             className={({ isActive }) =>
               isActive ? "menu-item active" : "menu-item"
             }
@@ -36,27 +45,22 @@ const Header = () => {
           </NavLink>
         </li>
       </ul>
-      <div>
+      <div className="space-x-4">
         {user ? (
           <>
-            <span className="font-medium text-gray-700">
+            <NavLink to="/profile" className="profile">
               {user.firstName} {user.lastName}
-            </span>
-            <button
+            </NavLink>
+            <Button
               onClick={handleLogout}
-              className="p-2 rounded bg-red-500 text-white hover:bg-red-600 transition duration-200"
-              aria-label="Вихід"
-              title="Вихід"
-            >
-              Вихід
-            </button>
+              className="p-2 rounded text-white hover:bg-red-600 transition duration-200 w-fit!"
+              text={BUTTONS_TEXT.Exit}
+            ></Button>
           </>
         ) : (
           <button
             onClick={toggleForm}
             className="p-2 rounded-full bg-white hover:bg-[var(--clr-secondary)] shadow-md transition duration-200 flex items-center justify-center"
-            aria-label="Вхід"
-            title="Вхід"
           >
             <svg
               width="24"

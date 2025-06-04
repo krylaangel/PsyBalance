@@ -6,6 +6,7 @@ import Button from "@/components/ui/buttons/Button.jsx";
 const UncontrolledFormFeedback = () => {
   const feedbackRef = useRef(null);
   const mailRef = useRef(null);
+
   const handleSubmit = (e) => {
     const feedback = feedbackRef.current.value;
     const email = mailRef.current.value;
@@ -16,8 +17,8 @@ const UncontrolledFormFeedback = () => {
   };
 
   return (
-    <div className="user-survey-form">
-      <form className="flex flex-col gap-y-4 my-10 p-6 rounded-xl shadow-md">
+    <div className="user-survey-form card">
+      <form className="flex flex-col gap-y-4 my-10 p-6 card">
         <InputField
           label="Ваш відгук:"
           type="text"

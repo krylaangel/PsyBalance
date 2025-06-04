@@ -4,15 +4,17 @@ import { validateForm } from "@/utils/validateForm.js";
 import { BUTTONS_TEXT } from "@/constants/buttons.js";
 import Button from "@/components/ui/buttons/Button.jsx";
 import InputField from "@/components/ui/inputFields/InputField.jsx";
-import { useAuth } from "@/context/AuthContext.jsx";
+import { useAuthStore } from "@/store/useAuthStore.js";
 
 const ControlledFormAuth = () => {
-  const { login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [submitForm, setSubmitForm] = useState(null);
   const [errorMessage, setErrorMessage] = useState({});
+
+  const login = useAuthStore((state) => state.login);
   const navigate = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("handleSubmit called");
@@ -22,7 +24,6 @@ const ControlledFormAuth = () => {
 
     setErrorMessage(errors);
     if (Object.keys(errors).length === 0) {
-      console.log("kkkkk");
       try {
         await login({ email, password });
         setSubmitForm({ email, password });
@@ -41,8 +42,9 @@ const ControlledFormAuth = () => {
   const toggleReg = () => {
     navigate("/ControlledFormReg");
   };
+
   return (
-    <div className="user-survey-form">
+    <div className="user-survey-form card">
       <form className="flex flex-col gap-y-4" onSubmit={handleSubmit}>
         <InputField
           label="Email"

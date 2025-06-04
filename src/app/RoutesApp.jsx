@@ -6,6 +6,8 @@ import ControlledFormReg from "@/components/forms/ControlledFormReg.jsx";
 import PostsList from "@/components/pages/PostsList.jsx";
 import PostPageContainer from "@/components/containers/PostPageContainer.jsx";
 import TestPage from "@/components/pages/TestPage.jsx";
+import UserProfile from "@/components/pages/UserProfile.jsx";
+import TestsList from "@/components/pages/TestsList.jsx";
 
 const RoutesApp = () => {
   return useRoutes([
@@ -20,8 +22,11 @@ const RoutesApp = () => {
       element: <UncontrolledFormFeedback />,
     },
     { path: "/TestPage", element: <TestPage /> },
+    { path: "/profile", element: <UserProfile /> },
+
     { path: "/post/:id", element: <PostPageContainer /> },
     { path: "/posts", element: <PostsList /> },
+    { path: "/tests", element: <TestsList /> },
   ]);
 };
 export default RoutesApp;

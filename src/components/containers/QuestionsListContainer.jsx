@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { BUTTONS_TEXT } from "@/constants/buttons.js";
 import Button from "@/components/ui/buttons/Button.jsx";
 import Question from "@/components/survey/Question.jsx";
 import Result from "@/components/survey/Result.jsx";
+import { useDispatch } from "react-redux";
+import { addResult } from "@/temp/redux/testResultsSlice.js";
 
 const QuestionsListContainer = ({ questions, results, answers }) => {
   const [questionResponses, setQuestionResponses] = useState({});
@@ -13,9 +15,20 @@ const QuestionsListContainer = ({ questions, results, answers }) => {
   const currentQuestion = questions[currentQuestionIndex];
   const isCurrentQuestionAnswered =
     questionResponses[currentQuestion.id] !== undefined;
+
+  const dispatch = useDispatch();
+
   const handleChange = (questionId, value) => {
     setQuestionResponses({ ...questionResponses, [questionId]: value });
   };
+  const handleButtonClick = () => {
+    if (currentQuestionIndex < questions.length - 1) {
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+    } else {
+      setShowResult(true);
+    }
+  };
+
   const calculateAnswers = Object.values(questionResponses).reduce(
     (accum, answer) => {
       return accum + answer;
@@ -26,16 +39,20 @@ const QuestionsListContainer = ({ questions, results, answers }) => {
     const [min, max] = item.range;
     return calculateAnswers >= min && calculateAnswers <= max;
   });
-  const handleButtonClick = () => {
-    if (currentQuestionIndex < questions.length - 1) {
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
-    } else {
-      setShowResult(true);
+
+  useEffect(() => {
+    if (showResult && matchedResult) {
+      const testResult = {
+        testName: "PHQ9",
+        result: matchedResult.result,
+        date: new Date().toLocaleDateString("uk-UA"),
+      };
+      dispatch(addResult(testResult));
     }
-  };
+  }, [dispatch, matchedResult, showResult]);
 
   return (
-    <div className="user-survey-form mt-10">
+    <div className="user-survey-form mt-10 card">
       <Question
         currentQuestion={currentQuestion}
         questionResponses={questionResponses}
