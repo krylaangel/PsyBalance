@@ -12,4 +12,7 @@ export const BUTTONS_TEXT = {
   Next: "Наступна",
   Previous: "Попередня",
   Post: "Всі статті",
+  Exit: "Вихід",
+  Refresh: "Пройти знову",
+  Test: "Пройти тест",
 };

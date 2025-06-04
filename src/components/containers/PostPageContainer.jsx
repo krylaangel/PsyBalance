@@ -6,22 +6,26 @@ import { ERRORS_MESSAGE } from "@/constants/errorStyle.js";
 import { useEffect, useState } from "react";
 import { PAGINATION_LIMIT } from "@/constants/pagination.js";
 import { useTotalStore } from "@/store/useTotalStore.js";
-import { PostsService } from "@/service/PostsService.js";
+import { postsService } from "@/service/postsService.js";
 
 const PostPageContainer = () => {
-  const { total, fetchTotal } = useTotalStore();
-  const { id } = useParams();
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  const { total, fetchTotal } = useTotalStore();
+  const { id } = useParams();
   const navigate = useNavigate();
+
   const navigateTo = (offset) => {
     navigate(`/post/${Number(id) + offset}`);
   };
+
   const togglePost = () => {
     const page = Math.ceil(Number(id) / PAGINATION_LIMIT);
     navigate(`/posts?page=${page}`);
   };
+
   useEffect(() => {
     if (total === 0) {
       fetchTotal().catch(setError);
@@ -30,7 +34,8 @@ const PostPageContainer = () => {
 
   useEffect(() => {
     setLoading(true);
-    PostsService.fetchPost(id)
+    postsService
+      .fetchPost(id)
       .then(setPost)
       .catch(setError)
       .finally(() => setLoading(false));
@@ -49,22 +54,24 @@ const PostPageContainer = () => {
     );
 
   return (
-    <div className="page mt-4">
-      <h2 className="page__title">{post.title}</h2>
-      <p className="page__category">Категорія: {post.category}</p>
-      <p className="page__description">{post.description}</p>
-      <div className="flex flex-col sm:flex-row gap-2">
-        <Button
-          disabled={Number(id) === 1}
-          text={BUTTONS_TEXT.Previous}
-          onClick={() => navigateTo(-1)}
-        />
-        <Button text={BUTTONS_TEXT.Post} onClick={togglePost} />
-        <Button
-          disabled={Number(id) === total}
-          text={BUTTONS_TEXT.Next}
-          onClick={() => navigateTo(1)}
-        />
+    <div className="clamp">
+      <div className="page mt-4 card">
+        <h2 className="page__title">{post.title}</h2>
+        <p className="page__category">Категорія: {post.category}</p>
+        <p className="page__description">{post.description}</p>
+        <div className="flex flex-col sm:flex-row gap-2">
+          <Button
+            disabled={Number(id) === 1}
+            text={BUTTONS_TEXT.Previous}
+            onClick={() => navigateTo(-1)}
+          />
+          <Button text={BUTTONS_TEXT.Post} onClick={togglePost} />
+          <Button
+            disabled={Number(id) === total}
+            text={BUTTONS_TEXT.Next}
+            onClick={() => navigateTo(1)}
+          />
+        </div>
       </div>
     </div>
   );

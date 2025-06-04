@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 import { validateForm } from "@/utils/validateForm.js";
 import Button from "@/components/ui/buttons/Button.jsx";
 import InputField from "@/components/ui/inputFields/InputField.jsx";
-import { useAuth } from "@/context/AuthContext.jsx";
+import { useAuthStore } from "@/store/useAuthStore.js";
 
 const ControlledFormReg = () => {
   const [firstName, setFirstName] = useState("");
@@ -14,9 +14,10 @@ const ControlledFormReg = () => {
   const [password, setPassword] = useState("");
   const [submitForm, setSubmitForm] = useState(null);
   const [errorMessage, setErrorMessage] = useState({});
-  const { register } = useAuth();
 
+  const register = useAuthStore((state) => state.register);
   const navigate = useNavigate();
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setSubmitForm(null);
@@ -38,15 +39,17 @@ const ControlledFormReg = () => {
       }
     }
   };
+
   const toggleAuth = () => {
     navigate("/ControlledFormAuth");
   };
+
   useEffect(() => {
     setErrorMessage(validateForm({ firstName, lastName, email, password }));
   }, [firstName, lastName, email, password]);
 
   return (
-    <div className="user-survey-form mb-5">
+    <div className="user-survey-form mb-5 card">
       <form className="flex flex-col gap-y-4" onSubmit={handleSubmit}>
         <InputField
           label="Ім'я"

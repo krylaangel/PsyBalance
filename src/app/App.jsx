@@ -3,7 +3,7 @@ import { BrowserRouter } from "react-router";
 import Header from "@/components/layout/Header.jsx";
 import Footer from "@/components/layout/Footer.jsx";
 import RoutesApp from "@/app/RoutesApp.jsx";
-import { AuthProvider } from "@/context/AuthContext.jsx";
+import { AuthProvider } from "@/temp/context/AuthContext.jsx";
 
 function App() {
   return (
@@ -11,7 +11,7 @@ function App() {
       <AuthProvider>
         <BrowserRouter>
           <Header />
-          <main className="flex-grow clamp">
+          <main className="flex-grow">
             <RoutesApp />
           </main>
           <Footer />

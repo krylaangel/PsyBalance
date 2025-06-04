@@ -4,28 +4,33 @@ import PostSkeleton from "@/components/ui/PostSkeleton.jsx";
 import { ERRORS_MESSAGE } from "@/constants/errorStyle.js";
 import { useCallback, useEffect, useState } from "react";
 import Button from "@/components/ui/buttons/Button.jsx";
-import { renderPageNumbers } from "@/utils/renderPageNumbers.js";
+import { renderPageNumbers } from "@/utils/renderPageNumbers.jsx";
 import { PAGINATION_LIMIT } from "@/constants/pagination.js";
 import { useTotalStore } from "@/store/useTotalStore.js";
-import { PostsService } from "@/service/PostsService.js";
+import { postsService } from "@/service/postsService.js";
 
 const PostsList = () => {
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [products, setProducts] = useState([]);
+
+  const navigate = useNavigate();
+
+  const { total, fetchTotal } = useTotalStore();
   let [searchParams, setSearchParams] = useSearchParams();
+
   const page = parseInt(searchParams.get("page"), 10) || 1;
   const limit = PAGINATION_LIMIT;
-  const { total, fetchTotal } = useTotalStore();
   const totalPages = Math.ceil(total / limit);
 
   const togglePostPage = (id) => {
     navigate(`/post/${id}`);
   };
+
   const handleDetails = (id) => {
     togglePostPage(id);
   };
+
   const handlePageChange = useCallback(
     (newPage) => {
       setSearchParams({ page: String(newPage) });
@@ -41,7 +46,8 @@ const PostsList = () => {
 
   useEffect(() => {
     setLoading(true);
-    PostsService.fetchPosts(page, limit)
+    postsService
+      .fetchPosts(page, limit)
       .then(setProducts)
       .catch(setProducts)
       .finally(() => setLoading(false));
@@ -58,7 +64,7 @@ const PostsList = () => {
   }, [handlePageChange, page, total, totalPages]);
 
   return (
-    <div className="max-w-xl mx-auto p-6 bg-white rounded-2xl shadow-md my-10">
+    <div className="max-w-xl mx-auto p-6 bg-white card">
       <h2 className="text-2xl font-bold mb-4 text-gray-800">Список тестів</h2>
       {error && (
         <p className={ERRORS_MESSAGE.errorClasses}>Помилка: {error.message}</p>

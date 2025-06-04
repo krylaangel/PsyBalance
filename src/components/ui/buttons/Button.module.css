@@ -13,6 +13,9 @@
 .button:disabled:hover {
     @apply bg-[var(--clr-button-disabled)] text-[var(--clr-primary)];
 }
+.button:disabled:active {
+    @apply scale-100;
+}
 .button:hover {
     @apply bg-[var(--clr-button-hover)] transition duration-150;
 }
