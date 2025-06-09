@@ -1,4 +1,5 @@
 import Button from "@/components/ui/buttons/Button.jsx";
+
 import { BUTTONS_TEXT } from "@/constants/buttons.js";
 
 const PostPage = ({ id, handleDetails, description, title, category }) => {

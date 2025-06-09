@@ -1,14 +1,15 @@
 import { useNavigate, useSearchParams } from "react-router";
 import PostSection from "@/components/Sections/PostSection.jsx";
-import PostSkeletonForList from "@/components/ui/PostSkeletonForList.jsx";
+import PostSkeletonForList from "@/components/ui/skeletons/PostSkeletonForList.jsx";
 import { ERRORS_MESSAGE } from "@/constants/errorStyle.js";
 import { useCallback, useEffect } from "react";
 import Button from "@/components/ui/buttons/Button.jsx";
 import { Pagination } from "@/components/ui/pagination/Pagination.jsx";
+import { useDispatch, useSelector } from "react-redux";
+
 import { PAGINATION_LIMIT } from "@/constants/pagination.js";
 import { useTotalStore } from "@/store/useTotalStore.js";
-import { useDispatch, useSelector } from "react-redux";
-import { thunksPosts } from "@/service/thunks/thunksPosts.js";
+import { thunksPosts } from "@/temp/redux/thunks/thunksPosts.js";
 
 const PostsList = () => {
   const dispatch = useDispatch();

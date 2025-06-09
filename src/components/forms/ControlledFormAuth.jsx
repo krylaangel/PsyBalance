@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import { validateForm } from "@/utils/validateForm.js";
-import { BUTTONS_TEXT } from "@/constants/buttons.js";
+
 import Button from "@/components/ui/buttons/Button.jsx";
 import InputField from "@/components/ui/inputFields/InputField.jsx";
+
+import { validateForm } from "@/utils/validateForm.js";
+
+import { BUTTONS_TEXT } from "@/constants/buttons.js";
 import { useAuthStore } from "@/store/useAuthStore.js";
 
 const ControlledFormAuth = () => {

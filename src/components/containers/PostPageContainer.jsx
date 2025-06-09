@@ -1,16 +1,19 @@
-import { useNavigate, useParams } from "react-router";
-import Button from "@/components/ui/buttons/Button.jsx";
-import { BUTTONS_TEXT } from "@/constants/buttons.js";
-import PostSkeletonForList from "@/components/ui/PostSkeletonForList.jsx";
-import { ERRORS_MESSAGE } from "@/constants/errorStyle.js";
 import { useEffect } from "react";
+import { useNavigate, useParams } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+
+import Button from "@/components/ui/buttons/Button.jsx";
+import PostSkeletonForList from "@/components/ui/skeletons/PostSkeletonForList.jsx";
+
+import { BUTTONS_TEXT } from "@/constants/buttons.js";
+import { ERRORS_MESSAGE } from "@/constants/errorStyle.js";
 import { PAGINATION_LIMIT } from "@/constants/pagination.js";
 import { useTotalStore } from "@/store/useTotalStore.js";
-import { useDispatch, useSelector } from "react-redux";
-import { thunkPost } from "@/service/thunks/thunkPost.js";
+import { thunkPost } from "@/temp/redux/thunks/thunkPost.js";
+import { thunkNeighborPosts } from "@/temp/redux/thunks/thunkNeighborPosts.js";
 
 const PostPageContainer = () => {
-  const { error, loading, post } = useSelector((state) => state.posts);
+  const { post, error } = useSelector((state) => state.posts);
   const dispatch = useDispatch();
   const { total, fetchTotal } = useTotalStore();
   const { id } = useParams();
@@ -32,13 +35,15 @@ const PostPageContainer = () => {
   }, [error, fetchTotal, total]);
 
   useEffect(() => {
-    dispatch(thunkPost(id));
+    if (id) {
+      dispatch(thunkPost(id));
+      dispatch(thunkNeighborPosts(Number(id)));
+    }
   }, [dispatch, id]);
 
-  if (loading) return <PostSkeleton />;
-  if (error)
-    return <p className={ERRORS_MESSAGE.errorClasses}>Помилка: {error}</p>;
-  if (!post)
+  if (!post && !error) return <PostSkeletonForList />;
+
+  if (!post && error)
     return (
       <p className={ERRORS_MESSAGE.warningClasses}>
         На жаль, такої статті не існує.

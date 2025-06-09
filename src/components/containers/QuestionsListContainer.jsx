@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 
-import { BUTTONS_TEXT } from "@/constants/buttons.js";
 import Button from "@/components/ui/buttons/Button.jsx";
 import Question from "@/components/survey/Question.jsx";
 import Result from "@/components/survey/Result.jsx";
-import { useDispatch } from "react-redux";
-import { addResult } from "@/temp/redux/testResultsSlice.js";
+
+import { addResult } from "@/temp/redux/slices/testResultsSlice.js";
+import { BUTTONS_TEXT } from "@/constants/buttons.js";
 
 const QuestionsListContainer = ({ questions, results, answers }) => {
   const [questionResponses, setQuestionResponses] = useState({});

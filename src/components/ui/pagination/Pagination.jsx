@@ -1,4 +1,5 @@
 import React from "react";
+
 import Button from "@/components/ui/buttons/Button.jsx";
 
 export const Pagination = ({ page, totalPages, setPage }) => {
