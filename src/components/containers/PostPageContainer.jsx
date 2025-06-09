@@ -1,18 +1,17 @@
 import { useNavigate, useParams } from "react-router";
 import Button from "@/components/ui/buttons/Button.jsx";
 import { BUTTONS_TEXT } from "@/constants/buttons.js";
-import PostSkeleton from "@/components/ui/PostSkeleton.jsx";
+import PostSkeletonForList from "@/components/ui/PostSkeletonForList.jsx";
 import { ERRORS_MESSAGE } from "@/constants/errorStyle.js";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { PAGINATION_LIMIT } from "@/constants/pagination.js";
 import { useTotalStore } from "@/store/useTotalStore.js";
-import { postsService } from "@/service/postsService.js";
+import { useDispatch, useSelector } from "react-redux";
+import { thunkPost } from "@/service/thunks/thunkPost.js";
 
 const PostPageContainer = () => {
-  const [post, setPost] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-
+  const { error, loading, post } = useSelector((state) => state.posts);
+  const dispatch = useDispatch();
   const { total, fetchTotal } = useTotalStore();
   const { id } = useParams();
   const navigate = useNavigate();
@@ -28,24 +27,17 @@ const PostPageContainer = () => {
 
   useEffect(() => {
     if (total === 0) {
-      fetchTotal().catch(setError);
+      fetchTotal().catch((err) => console.error(err));
     }
-  }, [fetchTotal, total]);
+  }, [error, fetchTotal, total]);
 
   useEffect(() => {
-    setLoading(true);
-    postsService
-      .fetchPost(id)
-      .then(setPost)
-      .catch(setError)
-      .finally(() => setLoading(false));
-  }, [id]);
+    dispatch(thunkPost(id));
+  }, [dispatch, id]);
 
   if (loading) return <PostSkeleton />;
   if (error)
-    return (
-      <p className={ERRORS_MESSAGE.errorClasses}>Помилка: {error.message}</p>
-    );
+    return <p className={ERRORS_MESSAGE.errorClasses}>Помилка: {error}</p>;
   if (!post)
     return (
       <p className={ERRORS_MESSAGE.warningClasses}>

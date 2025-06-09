@@ -1,8 +1,10 @@
+import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
+
 import Button from "@/components/ui/buttons/Button.jsx";
+
 import { BUTTONS_TEXT } from "@/constants/buttons.js";
 import { removeResult } from "@/temp/redux/testResultsSlice.js";
-import { useNavigate } from "react-router";
 
 const UserProfile = () => {
   const testResults = useSelector((state) => state.testResults.results);
@@ -10,7 +12,9 @@ const UserProfile = () => {
   const handleDelete = (index) => {
     dispatch(removeResult(index));
   };
+
   const navigate = useNavigate();
+
   return (
     <div className="clamp">
       <div className="card p-10">
