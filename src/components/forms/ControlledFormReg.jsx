@@ -107,11 +107,12 @@ const ControlledFormReg = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
         <Button type="submit" text={BUTTONS_TEXT.Save}></Button>
-        <Button
-          type="button"
+        <p
+          className="w-fit ml-auto text-[var(--clr-secondary)] hover:text-[var(--clr-layout)] hover:border-b-2 cursor-pointer"
           onClick={toggleAuth}
-          text={BUTTONS_TEXT.Auth}
-        ></Button>
+        >
+          У мене вже є профіль
+        </p>
       </form>
       {errorMessage.global && (
         <p className="text-red-500 font-medium">{errorMessage.global}</p>

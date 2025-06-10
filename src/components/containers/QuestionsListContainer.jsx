@@ -23,7 +23,11 @@ const QuestionsListContainer = ({ questions, results, answers }) => {
     setQuestionResponses({ ...questionResponses, [questionId]: value });
   };
   const handleButtonClick = () => {
-    if (currentQuestionIndex < questions.length - 1) {
+    if (showResult) {
+      setQuestionResponses({});
+      setCurrentQuestionIndex(0);
+      setShowResult(false);
+    } else if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {
       setShowResult(true);
@@ -49,6 +53,7 @@ const QuestionsListContainer = ({ questions, results, answers }) => {
         date: new Date().toLocaleDateString("uk-UA"),
       };
       dispatch(addResult(testResult));
+      console.log(testResult);
     }
   }, [dispatch, matchedResult, showResult]);
 
