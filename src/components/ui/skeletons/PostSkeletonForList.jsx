@@ -1,4 +1,4 @@
-const PostSkeleton = () => {
+const PostSkeletonForList = () => {
   return (
     <>
       <div className="p-4 space-y-4">
@@ -19,4 +19,4 @@ const PostSkeleton = () => {
     </>
   );
 };
-export default PostSkeleton;
+export default PostSkeletonForList;

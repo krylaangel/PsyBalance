@@ -1,20 +1,21 @@
 import { useNavigate, useSearchParams } from "react-router";
 import PostSection from "@/components/Sections/PostSection.jsx";
-import PostSkeleton from "@/components/ui/PostSkeleton.jsx";
+import PostSkeletonForList from "@/components/ui/skeletons/PostSkeletonForList.jsx";
 import { ERRORS_MESSAGE } from "@/constants/errorStyle.js";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 import Button from "@/components/ui/buttons/Button.jsx";
-import { renderPageNumbers } from "@/utils/renderPageNumbers.jsx";
+import { Pagination } from "@/components/ui/pagination/Pagination.jsx";
+import { useDispatch, useSelector } from "react-redux";
+
 import { PAGINATION_LIMIT } from "@/constants/pagination.js";
 import { useTotalStore } from "@/store/useTotalStore.js";
-import { postsService } from "@/service/postsService.js";
+import { thunksPosts } from "@/temp/redux/thunks/thunksPosts.js";
 
 const PostsList = () => {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [products, setProducts] = useState([]);
-
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { posts, error, loading } = useSelector((state) => state.posts);
 
   const { total, fetchTotal } = useTotalStore();
   let [searchParams, setSearchParams] = useSearchParams();
@@ -40,40 +41,31 @@ const PostsList = () => {
 
   useEffect(() => {
     if (total === 0) {
-      fetchTotal().catch(setError);
+      fetchTotal().catch((err) => console.error(err));
     }
-  }, [fetchTotal, total]);
+  }, [error, fetchTotal, total]);
 
   useEffect(() => {
-    setLoading(true);
-    postsService
-      .fetchPosts(page, limit)
-      .then(setProducts)
-      .catch(setProducts)
-      .finally(() => setLoading(false));
-  }, [limit, page]);
+    dispatch(thunksPosts({ page, limit }));
+  }, [dispatch, limit, page]);
 
   useEffect(() => {
     if (page < 1) {
       handlePageChange(1);
-      return null;
     } else if (total > 0 && page > totalPages) {
       handlePageChange(totalPages);
-      return null;
     }
   }, [handlePageChange, page, total, totalPages]);
 
   return (
     <div className="max-w-xl mx-auto p-6 bg-white card">
-      <h2 className="text-2xl font-bold mb-4 text-gray-800">Список тестів</h2>
-      {error && (
-        <p className={ERRORS_MESSAGE.errorClasses}>Помилка: {error.message}</p>
-      )}
+      <h2 className="text-2xl font-bold mb-4 text-gray-800">Статті</h2>
+      {error && <p className={ERRORS_MESSAGE.errorClasses}>Помилка: {error}</p>}
       {loading ? (
-        <PostSkeleton />
+        <PostSkeletonForList />
       ) : (
         <ul className="space-y-4">
-          {products.map((post) => (
+          {posts.map((post) => (
             <PostSection
               id={post.id}
               key={post.id}
@@ -91,7 +83,7 @@ const PostsList = () => {
           onClick={() => handlePageChange(page - 1)}
           text="Назад"
         />
-        {renderPageNumbers({ totalPages, setPage: handlePageChange, page })}
+        {Pagination({ totalPages, setPage: handlePageChange, page })}
         <Button
           disabled={page === totalPages}
           onClick={() => handlePageChange(page + 1)}

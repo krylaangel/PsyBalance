@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import { validateForm } from "@/utils/validateForm.js";
-import { BUTTONS_TEXT } from "@/constants/buttons.js";
+
 import Button from "@/components/ui/buttons/Button.jsx";
 import InputField from "@/components/ui/inputFields/InputField.jsx";
+
+import { validateForm } from "@/utils/validateForm.js";
+
+import { BUTTONS_TEXT } from "@/constants/buttons.js";
 import { useAuthStore } from "@/store/useAuthStore.js";
 
 const ControlledFormAuth = () => {
@@ -66,11 +69,12 @@ const ControlledFormAuth = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
         <Button type="submit" text={BUTTONS_TEXT.Auth}></Button>
-        <Button
-          type="button"
+        <p
+          className="w-fit ml-auto text-[var(--clr-secondary)] hover:text-[var(--clr-layout)] hover:border-b-2 cursor-pointer"
           onClick={toggleReg}
-          text={BUTTONS_TEXT.Reg}
-        ></Button>
+        >
+          У мене вже є профіль
+        </p>
       </form>
       {submitForm && (
         <div className="mt-3">

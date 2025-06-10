@@ -1,5 +1,7 @@
 import { create } from "zustand";
+
 import { storageService } from "@/service/storageService.js";
+
 export const useAuthStore = create((set) => ({
   user: storageService.getUser(),
 

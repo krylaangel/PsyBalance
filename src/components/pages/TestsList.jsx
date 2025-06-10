@@ -1,6 +1,8 @@
-import Button from "@/components/ui/buttons/Button.jsx";
-import { BUTTONS_TEXT } from "@/constants/buttons.js";
 import { useNavigate } from "react-router";
+
+import Button from "@/components/ui/buttons/Button.jsx";
+
+import { BUTTONS_TEXT } from "@/constants/buttons.js";
 
 const TestsList = () => {
   const navigate = useNavigate();

@@ -1,18 +1,20 @@
+import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+
 import Button from "@/components/ui/buttons/Button.jsx";
+import PostSkeletonForList from "@/components/ui/skeletons/PostSkeletonForList.jsx";
+
 import { BUTTONS_TEXT } from "@/constants/buttons.js";
-import PostSkeleton from "@/components/ui/PostSkeleton.jsx";
 import { ERRORS_MESSAGE } from "@/constants/errorStyle.js";
-import { useEffect, useState } from "react";
 import { PAGINATION_LIMIT } from "@/constants/pagination.js";
 import { useTotalStore } from "@/store/useTotalStore.js";
-import { postsService } from "@/service/postsService.js";
+import { thunkPost } from "@/temp/redux/thunks/thunkPost.js";
+import { thunkNeighborPosts } from "@/temp/redux/thunks/thunkNeighborPosts.js";
 
 const PostPageContainer = () => {
-  const [post, setPost] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-
+  const { post, error } = useSelector((state) => state.posts);
+  const dispatch = useDispatch();
   const { total, fetchTotal } = useTotalStore();
   const { id } = useParams();
   const navigate = useNavigate();
@@ -28,25 +30,20 @@ const PostPageContainer = () => {
 
   useEffect(() => {
     if (total === 0) {
-      fetchTotal().catch(setError);
+      fetchTotal().catch((err) => console.error(err));
     }
-  }, [fetchTotal, total]);
+  }, [error, fetchTotal, total]);
 
   useEffect(() => {
-    setLoading(true);
-    postsService
-      .fetchPost(id)
-      .then(setPost)
-      .catch(setError)
-      .finally(() => setLoading(false));
-  }, [id]);
+    if (id) {
+      dispatch(thunkPost(id));
+      dispatch(thunkNeighborPosts(Number(id)));
+    }
+  }, [dispatch, id]);
 
-  if (loading) return <PostSkeleton />;
-  if (error)
-    return (
-      <p className={ERRORS_MESSAGE.errorClasses}>Помилка: {error.message}</p>
-    );
-  if (!post)
+  if (!post && !error) return <PostSkeletonForList />;
+
+  if (!post && error)
     return (
       <p className={ERRORS_MESSAGE.warningClasses}>
         На жаль, такої статті не існує.
