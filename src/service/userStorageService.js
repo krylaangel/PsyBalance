@@ -1,6 +1,6 @@
 import { USER_KEY, USERS_KEY } from "@/constants/users.js";
 
-export const storageService = {
+export const userStorageService = {
   getUser: () => {
     const user = localStorage.getItem(USER_KEY);
     return user ? JSON.parse(user) : null;

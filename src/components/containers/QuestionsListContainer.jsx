@@ -20,7 +20,7 @@ const QuestionsListContainer = ({ questions, results, answers }) => {
   const dispatch = useDispatch();
 
   const handleChange = (questionId, value) => {
-    setQuestionResponses({ ...questionResponses, [questionId]: value });
+    setQuestionResponses({ ...questionResponses, [questionId]: Number(value) });
   };
   const handleButtonClick = () => {
     if (showResult) {
@@ -46,6 +46,8 @@ const QuestionsListContainer = ({ questions, results, answers }) => {
   });
 
   useEffect(() => {
+    console.log("useEffect triggered:", { showResult, matchedResult });
+
     if (showResult && matchedResult) {
       const testResult = {
         testName: "PHQ9",
@@ -59,21 +61,31 @@ const QuestionsListContainer = ({ questions, results, answers }) => {
 
   return (
     <div className="user-survey-form mt-10 card">
-      <Question
-        currentQuestion={currentQuestion}
-        questionResponses={questionResponses}
-        handleChange={handleChange}
-        answers={answers}
-      />
-      <Button
-        disabled={!isCurrentQuestionAnswered}
-        text={
-          currentQuestionIndex < questions.length - 1
-            ? BUTTONS_TEXT.NextQuestion
-            : BUTTONS_TEXT.ClickUp
-        }
-        onClick={handleButtonClick}
-      />
+      {!showResult && (
+        <>
+          <p className="question-number">
+            Питання {currentQuestionIndex + 1} з {questions.length}
+          </p>
+
+          <Question
+            currentQuestion={currentQuestion}
+            questionResponses={questionResponses}
+            handleChange={handleChange}
+            answers={answers}
+          />
+
+          <Button
+            disabled={!isCurrentQuestionAnswered}
+            text={
+              currentQuestionIndex < questions.length - 1
+                ? BUTTONS_TEXT.NextQuestion
+                : BUTTONS_TEXT.Result
+            }
+            onClick={handleButtonClick}
+          />
+        </>
+      )}
+
       {showResult && matchedResult && (
         <Result matchedResult={matchedResult.result} />
       )}
