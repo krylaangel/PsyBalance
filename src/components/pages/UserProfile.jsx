@@ -5,15 +5,22 @@ import Button from "@/components/ui/buttons/Button.jsx";
 
 import { BUTTONS_TEXT } from "@/constants/buttons.js";
 import { removeResult } from "@/temp/redux/slices/testResultsSlice.js";
+import { useEffect } from "react";
+import { thunkResults } from "@/temp/redux/thunks/thunkResults.js";
 
 const UserProfile = () => {
+  const navigate = useNavigate();
+
   const testResults = useSelector((state) => state.testResults.results);
   const dispatch = useDispatch();
+
   const handleDelete = (index) => {
     dispatch(removeResult(index));
   };
 
-  const navigate = useNavigate();
+  useEffect(() => {
+    dispatch(thunkResults());
+  }, [dispatch]);
 
   return (
     <div className="clamp">

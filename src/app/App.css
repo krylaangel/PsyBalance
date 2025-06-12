@@ -25,11 +25,24 @@ footer {
   @apply h-[100px] flex items-center;
 }
 .menu-item {
-  @apply font-medium text-white text-sm md:text-base uppercase
-  hover:text-[var(--clr-button-hover)] hover:border-b-2 cursor-pointer hover:border-[var(--clr-button-hover)];
+  @apply font-medium text-white text-sm md:text-base uppercase cursor-pointer
+  relative inline-block;
 }
+
+.menu-item::after {
+  content: '';
+  @apply absolute left-0 bottom-0 h-[1px] w-0 bg-[var(--clr-button-hover)] transition-all duration-300;
+}
+
+.menu-item:not(.active):hover::after {
+  width: 100%;
+}
+
 .menu-item.active {
-  @apply font-bold text-[var(--clr-button-hover)] border-b-2 border-[var(--clr-button-hover)];
+  @apply font-bold text-[var(--clr-button-hover)];
+}
+.menu-item.active::after {
+  @apply w-full
 }
 .gradient-layout__header {
   @apply bg-gradient-to-r from-indigo-500 via-blue-300 to-white;
@@ -48,6 +61,9 @@ footer {
 /*=====================================================================================*/
 .question {
   @apply w-full text-lg font-medium;
+}
+.question-number{
+  @apply text-[var(--clr-layout)]
 }
 /*=====================================================================================*/
 

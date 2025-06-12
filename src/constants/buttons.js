@@ -1,5 +1,5 @@
 export const BUTTONS_TEXT = {
-  ClickUp: "Результат",
+  Result: "Результат",
   NextQuestion: "Наступне питання",
   Save: "Зберігти",
   Submit: "Відправити",
