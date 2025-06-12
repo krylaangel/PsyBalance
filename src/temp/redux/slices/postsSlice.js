@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { thunksPosts } from "@/temp/redux/thunks/thunksPosts.js";
 import { thunkPost } from "@/temp/redux/thunks/thunkPost.js";
 import { thunkNeighborPosts } from "@/temp/redux/thunks/thunkNeighborPosts.js";
+import { ERRORS_MESSAGE } from "@/constants/errorsConstants.js";
 
 export const postsSlice = createSlice({
   name: "posts",
@@ -27,7 +28,7 @@ export const postsSlice = createSlice({
       })
       .addCase(thunksPosts.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload ?? "Помилка отримання постів";
+        state.error = action.payload ?? ERRORS_MESSAGE.errorPosts;
       })
       .addCase(thunkPost.pending, (state) => {
         state.error = null;
@@ -39,7 +40,7 @@ export const postsSlice = createSlice({
       })
       .addCase(thunkPost.rejected, (state, action) => {
         state.loadingPost = false;
-        state.error = action.payload ?? "Помилка отримання постів";
+        state.error = action.payload ?? ERRORS_MESSAGE.errorPosts;
       })
       .addCase(thunkNeighborPosts.pending, (state) => {
         state.error = null;
@@ -54,7 +55,7 @@ export const postsSlice = createSlice({
       })
       .addCase(thunkNeighborPosts.rejected, (state, action) => {
         state.loadingNeighbors = false;
-        state.error = action.payload ?? "Помилка отримання постів";
+        state.error = action.payload ?? "ERRORS_MESSAGE.errorPosts";
       });
   },
 });

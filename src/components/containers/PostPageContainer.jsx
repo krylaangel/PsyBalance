@@ -6,7 +6,7 @@ import Button from "@/components/ui/buttons/Button.jsx";
 import PostSkeletonForList from "@/components/ui/skeletons/PostSkeletonForList.jsx";
 
 import { BUTTONS_TEXT } from "@/constants/buttons.js";
-import { ERRORS_MESSAGE } from "@/constants/errorStyle.js";
+import { ERRORS_STYLES } from "@/constants/errorStyle.js";
 import { PAGINATION_LIMIT } from "@/constants/pagination.js";
 import { useTotalStore } from "@/store/useTotalStore.js";
 import { thunkPost } from "@/temp/redux/thunks/thunkPost.js";
@@ -45,7 +45,7 @@ const PostPageContainer = () => {
 
   if (!post && error)
     return (
-      <p className={ERRORS_MESSAGE.warningClasses}>
+      <p className={ERRORS_STYLES.warningClasses}>
         На жаль, такої статті не існує.
       </p>
     );
