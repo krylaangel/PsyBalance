@@ -5,6 +5,7 @@ export const testResultsStorageService = {
     const results = localStorage.getItem(RESULTS);
     return results ? JSON.parse(results) : [];
   },
+
   setResults(results) {
     localStorage.setItem(RESULTS, JSON.stringify(results));
   },

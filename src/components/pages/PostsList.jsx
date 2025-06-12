@@ -1,7 +1,7 @@
 import { useNavigate, useSearchParams } from "react-router";
 import PostSection from "@/components/Sections/PostSection.jsx";
 import PostSkeletonForList from "@/components/ui/skeletons/PostSkeletonForList.jsx";
-import { ERRORS_MESSAGE } from "@/constants/errorStyle.js";
+import { ERRORS_STYLES } from "@/constants/errorStyle.js";
 import { useCallback, useEffect } from "react";
 import Button from "@/components/ui/buttons/Button.jsx";
 import { Pagination } from "@/components/ui/pagination/Pagination.jsx";
@@ -60,7 +60,7 @@ const PostsList = () => {
   return (
     <div className="max-w-xl mx-auto p-6 bg-white card">
       <h2 className="text-2xl font-bold mb-4 text-gray-800">Статті</h2>
-      {error && <p className={ERRORS_MESSAGE.errorClasses}>Помилка: {error}</p>}
+      {error && <p className={ERRORS_STYLES.errorClasses}>Помилка: {error}</p>}
       {loading ? (
         <PostSkeletonForList />
       ) : (

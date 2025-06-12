@@ -1,4 +1,4 @@
-export const ERRORS_MESSAGE = {
+export const ERRORS_STYLES = {
   warningClasses:
     "text-yellow-800 bg-yellow-100 border border-yellow-300 p-4 rounded-lg shadow-sm text-center",
   errorClasses:

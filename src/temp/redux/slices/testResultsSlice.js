@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { testResultsStorageService } from "@/service/testResultsStorageService.js";
 import { thunkResults } from "@/temp/redux/thunks/thunkResults.js";
-import { RESULTS } from "@/constants/resultsTest.js";
+import { ERRORS_MESSAGE } from "@/constants/errorsConstants.js";
 
 export const testResultsSlice = createSlice({
   name: "results",
@@ -12,8 +12,7 @@ export const testResultsSlice = createSlice({
   },
   reducers: {
     addResult: (state, action) => {
-      state.results = [...state.results, action.payload];
-      testResultsStorageService.setResults(state.results);
+      state.results.push(action.payload);
     },
     removeResult: (state, action) => {
       state.results = state.results.filter((_, i) => i !== action.payload);
@@ -32,8 +31,7 @@ export const testResultsSlice = createSlice({
       })
       .addCase(thunkResults.rejected, (state, action) => {
         state.loading = false;
-        state.error =
-          action.payload ?? "Помилка відображення результатів тесту";
+        state.error = action.payload ?? ERRORS_MESSAGE.errorResults;
       });
   },
 });

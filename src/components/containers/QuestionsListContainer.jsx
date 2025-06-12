@@ -46,8 +46,6 @@ const QuestionsListContainer = ({ questions, results, answers }) => {
   });
 
   useEffect(() => {
-    console.log("useEffect triggered:", { showResult, matchedResult });
-
     if (showResult && matchedResult) {
       const testResult = {
         testName: "PHQ9",
@@ -55,7 +53,6 @@ const QuestionsListContainer = ({ questions, results, answers }) => {
         date: new Date().toLocaleDateString("uk-UA"),
       };
       dispatch(addResult(testResult));
-      console.log(testResult);
     }
   }, [dispatch, matchedResult, showResult]);
 
