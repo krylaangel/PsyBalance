@@ -15,4 +15,5 @@ export const BUTTONS_TEXT = {
   Exit: "Вихід",
   Refresh: "Пройти знову",
   Test: "Пройти тест",
+  Read: "Читати повністю",
 };
