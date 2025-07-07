@@ -36,7 +36,11 @@ const UncontrolledFormFeedback = () => {
           ref={mailRef}
           placeholder="Ваша пошта:"
         />
-        <Button onClick={handleSubmit} text={BUTTONS_TEXT.Submit}></Button>
+        <Button
+          className="w-full"
+          onClick={handleSubmit}
+          text={BUTTONS_TEXT.Submit}
+        ></Button>
       </form>
     </div>
   );

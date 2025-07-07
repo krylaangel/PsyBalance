@@ -5,18 +5,18 @@ import { ERRORS_STYLES } from "@/constants/errorStyle.js";
 import { useCallback, useEffect } from "react";
 import Button from "@/components/ui/buttons/Button.jsx";
 import { Pagination } from "@/components/ui/pagination/Pagination.jsx";
-import { useDispatch, useSelector } from "react-redux";
 
 import { PAGINATION_LIMIT } from "@/constants/pagination.js";
 import { useTotalStore } from "@/store/useTotalStore.js";
-import { thunksPosts } from "@/temp/redux/thunks/thunksPosts.js";
+import { usePostsStore } from "@/store/usePostsStore.js";
 
 const PostsList = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { posts, error, loading } = useSelector((state) => state.posts);
-
+  const posts = usePostsStore((state) => state.posts);
+  const error = usePostsStore((state) => state.errorPosts);
+  const loading = usePostsStore((state) => state.loadingPosts);
+  const getPosts = usePostsStore((state) => state.getPosts);
   const { total, fetchTotal } = useTotalStore();
   let [searchParams, setSearchParams] = useSearchParams();
 
@@ -24,12 +24,8 @@ const PostsList = () => {
   const limit = PAGINATION_LIMIT;
   const totalPages = Math.ceil(total / limit);
 
-  const togglePostPage = (id) => {
+  const handlePostClick = (id) => {
     navigate(`/post/${id}`);
-  };
-
-  const handleDetails = (id) => {
-    togglePostPage(id);
   };
 
   const handlePageChange = useCallback(
@@ -46,8 +42,8 @@ const PostsList = () => {
   }, [error, fetchTotal, total]);
 
   useEffect(() => {
-    dispatch(thunksPosts({ page, limit }));
-  }, [dispatch, limit, page]);
+    getPosts(page, limit);
+  }, [getPosts, limit, page]);
 
   useEffect(() => {
     if (page < 1) {
@@ -72,19 +68,25 @@ const PostsList = () => {
               category={post.category}
               title={post.title}
               description={post.description}
-              handleDetails={handleDetails}
+              handleDetails={handlePostClick}
             />
           ))}
         </ul>
       )}
       <div className="flex mt-4 gap-x-2">
         <Button
+          className="w-full"
           disabled={page === 1}
           onClick={() => handlePageChange(page - 1)}
           text="Назад"
         />
-        {Pagination({ totalPages, setPage: handlePageChange, page })}
+        <Pagination
+          totalPages={totalPages}
+          setPage={handlePageChange}
+          page={page}
+        />
         <Button
+          className="w-full"
           disabled={page === totalPages}
           onClick={() => handlePageChange(page + 1)}
           text="Вперед"

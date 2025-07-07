@@ -6,13 +6,13 @@ export const validateForm = (fields) => {
 
   if ("firstName" in fields && isEmpty(firstName)) {
     errors.firstName = "Поле Ім'я обов'язкове";
-  } else if ("firstName" in fields && firstName.length < 5) {
+  } else if ("firstName" in fields && firstName.length < 2) {
     errors.firstName = "Повинно бути більше 5 літер";
   }
 
   if ("lastName" in fields && isEmpty(lastName)) {
     errors.lastName = "Поле Прізвище обов'язкове";
-  } else if ("lastName" in fields && lastName.length < 5) {
+  } else if ("lastName" in fields && lastName.length < 2) {
     errors.lastName = "Повинно бути більше 5 літер";
   }
 

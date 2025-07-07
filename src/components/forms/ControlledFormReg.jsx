@@ -106,7 +106,11 @@ const ControlledFormReg = () => {
           errorMessage={errorMessage.password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <Button type="submit" text={BUTTONS_TEXT.Save}></Button>
+        <Button
+          className="w-full"
+          type="submit"
+          text={BUTTONS_TEXT.Save}
+        ></Button>
         <p
           className="w-fit ml-auto text-[var(--clr-secondary)] hover:text-[var(--clr-layout)] hover:border-b-2 cursor-pointer"
           onClick={toggleAuth}

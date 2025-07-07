@@ -9,4 +9,11 @@ export const testResultsStorageService = {
   setResults(results) {
     localStorage.setItem(RESULTS, JSON.stringify(results));
   },
+  getResult: () => {
+    const result = localStorage.getItem(RESULT);
+    return result ? JSON.parse(result) : null;
+  },
+  setResult: (result) => {
+    localStorage.setItem(RESULT, JSON.stringify(result));
+  },
 };
