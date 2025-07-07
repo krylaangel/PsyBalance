@@ -1,28 +1,22 @@
 import { useNavigate } from "react-router";
-import { useDispatch, useSelector } from "react-redux";
 
 import Button from "@/components/ui/buttons/Button.jsx";
+import PostSkeletonForList from "@/components/ui/skeletons/PostSkeletonForList.jsx";
 
 import { BUTTONS_TEXT } from "@/constants/buttons.js";
-import { removeResult } from "@/temp/redux/slices/testResultsSlice.js";
-import { useEffect } from "react";
-import { thunkResults } from "@/temp/redux/thunks/thunkResults.js";
-import PostSkeletonForList from "@/components/ui/skeletons/PostSkeletonForList.jsx";
+import { useTestResultsStore } from "@/store/useTestResultsStore.js";
 import { ERRORS_STYLES } from "@/constants/errorStyle.js";
 
 const UserProfile = () => {
   const navigate = useNavigate();
-
-  const { results, loading, error } = useSelector((state) => state.testResults);
-  const dispatch = useDispatch();
+  const results = useTestResultsStore((state) => state.results);
+  const loading = useTestResultsStore((state) => state.loading);
+  const error = useTestResultsStore((state) => state.error);
+  const removeResult = useTestResultsStore((state) => state.removeResult);
 
   const handleDelete = (index) => {
-    dispatch(removeResult(index));
+    removeResult(index);
   };
-
-  useEffect(() => {
-    dispatch(thunkResults());
-  }, [dispatch]);
 
   if (loading) {
     return <PostSkeletonForList />;
@@ -54,10 +48,12 @@ const UserProfile = () => {
               <p className="text-[var(--clr-text)]">{result.date}</p>
               <div className="flex gap-x-4 mt-6">
                 <Button
+                  className="w-full"
                   text={BUTTONS_TEXT.Delete}
                   onClick={() => handleDelete(index)}
                 ></Button>
                 <Button
+                  className="w-full"
                   text={BUTTONS_TEXT.Refresh}
                   onClick={() => navigate("/TestPage")}
                 ></Button>

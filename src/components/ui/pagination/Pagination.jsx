@@ -30,7 +30,9 @@ export const Pagination = ({ page, totalPages, setPage }) => {
         disabled={isActive}
         onClick={() => setPage(p)}
         text={String(p)}
-        className={isActive ? "bg-blue-600 text-white cursor-default" : ""}
+        className={
+          isActive ? "w-full bg-blue-600 text-white cursor-default" : "w-full"
+        }
       />
     );
   });

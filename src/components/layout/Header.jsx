@@ -55,7 +55,7 @@ const Header = () => {
             </NavLink>
             <Button
               onClick={handleLogout}
-              className="p-2 rounded text-white hover:bg-red-600 transition duration-200 w-fit!"
+              className="p-2 rounded text-white hover:bg-red-600 transition duration-200 w-fit"
               text={BUTTONS_TEXT.Exit}
             ></Button>
           </>

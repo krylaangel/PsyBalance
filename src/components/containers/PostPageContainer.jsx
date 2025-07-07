@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router";
-import { useDispatch, useSelector } from "react-redux";
 
 import Button from "@/components/ui/buttons/Button.jsx";
 import PostSkeletonForList from "@/components/ui/skeletons/PostSkeletonForList.jsx";
@@ -9,12 +8,14 @@ import { BUTTONS_TEXT } from "@/constants/buttons.js";
 import { ERRORS_STYLES } from "@/constants/errorStyle.js";
 import { PAGINATION_LIMIT } from "@/constants/pagination.js";
 import { useTotalStore } from "@/store/useTotalStore.js";
-import { thunkPost } from "@/temp/redux/thunks/thunkPost.js";
-import { thunkNeighborPosts } from "@/temp/redux/thunks/thunkNeighborPosts.js";
+import { usePostsStore } from "@/store/usePostsStore.js";
 
 const PostPageContainer = () => {
-  const { post, error } = useSelector((state) => state.posts);
-  const dispatch = useDispatch();
+  const post = usePostsStore((state) => state.post);
+  const error = usePostsStore((state) => state.errorPost);
+  const getNeighborPosts = usePostsStore((state) => state.getNeighborPosts);
+  const getPost = usePostsStore((state) => state.getPost);
+
   const { total, fetchTotal } = useTotalStore();
   const { id } = useParams();
   const navigate = useNavigate();
@@ -36,10 +37,10 @@ const PostPageContainer = () => {
 
   useEffect(() => {
     if (id) {
-      dispatch(thunkPost(id));
-      dispatch(thunkNeighborPosts(Number(id)));
+      getPost(id);
+      getNeighborPosts(id);
     }
-  }, [dispatch, id]);
+  }, [getNeighborPosts, getPost, id]);
 
   if (!post && !error) return <PostSkeletonForList />;
 
@@ -58,12 +59,18 @@ const PostPageContainer = () => {
         <p className="page__description">{post.description}</p>
         <div className="flex flex-col sm:flex-row gap-2">
           <Button
+            className="w-full"
             disabled={Number(id) === 1}
             text={BUTTONS_TEXT.Previous}
             onClick={() => navigateTo(-1)}
           />
-          <Button text={BUTTONS_TEXT.Post} onClick={togglePost} />
           <Button
+            className="w-full"
+            text={BUTTONS_TEXT.Post}
+            onClick={togglePost}
+          />
+          <Button
+            className="w-full"
             disabled={Number(id) === total}
             text={BUTTONS_TEXT.Next}
             onClick={() => navigateTo(1)}

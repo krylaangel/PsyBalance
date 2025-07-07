@@ -1,5 +1,6 @@
 @import "../../node_modules/tailwindcss";
 @tailwind utilities;
+
 @layer utilities {
   .clamp {
     padding-right: clamp(10px, 10vw, 200px);
