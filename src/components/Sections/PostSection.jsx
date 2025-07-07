@@ -9,9 +9,7 @@ const PostPage = ({ id, handleDetails, description, title, category }) => {
       <h3 className="page__title">{title}</h3>
       <p className="page__category">Номер: {id}</p>
       <p className="page__category">Категорія: {category}</p>
-      <Expanded className="page__description" valueClampLine={2}>
-        {description}
-      </Expanded>
+      <Expanded className="page__description">{description}</Expanded>
       <div className="flex flex-col sm:flex-row gap-2">
         <Button
           className="w-full"
