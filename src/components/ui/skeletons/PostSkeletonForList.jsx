@@ -1,20 +1,21 @@
+import styles from "./PostSkeletonForList.module.css";
 const PostSkeletonForList = () => {
   return (
     <>
       <div className="p-4 space-y-4">
-        <div className="h-6 bg-gray-200 rounded animate-pulse w-1/2"></div>
-        <div className="h-4 bg-gray-200 rounded animate-pulse w-full"></div>
-        <div className="h-4 bg-gray-200 rounded animate-pulse w-3/4"></div>
+        <div className={`h-6 ${styles.postSkeletonForList} w-1/2`}></div>
+        <div className={`h-4 ${styles.postSkeletonForList} w-full`}></div>
+        <div className={`h-4 ${styles.postSkeletonForList} w-3/4`}></div>
       </div>
       <div className="p-4 space-y-4">
-        <div className="h-6 bg-gray-200 rounded animate-pulse w-1/2"></div>
-        <div className="h-4 bg-gray-200 rounded animate-pulse w-full"></div>
-        <div className="h-4 bg-gray-200 rounded animate-pulse w-3/4"></div>
+        <div className={`h-6 ${styles.postSkeletonForList} w-1/2`}></div>
+        <div className={`h-4 ${styles.postSkeletonForList} w-full`}></div>
+        <div className={`h-4 ${styles.postSkeletonForList} w-3/4`}></div>
       </div>
       <div className="p-4 space-y-4">
-        <div className="h-6 bg-gray-200 rounded animate-pulse w-1/2"></div>
-        <div className="h-4 bg-gray-200 rounded animate-pulse w-full"></div>
-        <div className="h-4 bg-gray-200 rounded animate-pulse w-3/4"></div>
+        <div className={`h-6 ${styles.postSkeletonForList} w-1/2`}></div>
+        <div className={`h-4 ${styles.postSkeletonForList} w-full`}></div>
+        <div className={`h-4 ${styles.postSkeletonForList} w-3/4`}></div>
       </div>
     </>
   );

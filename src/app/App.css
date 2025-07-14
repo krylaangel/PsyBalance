@@ -3,8 +3,8 @@
 
 @layer utilities {
   .clamp {
-    padding-right: clamp(10px, 10vw, 200px);
-    padding-left: clamp(10px, 10vw, 200px);
+    padding-right: clamp(10px, 5vw, 200px);
+    padding-left: clamp(10px, 5vw, 200px);
   }
 }
 @layer base {
@@ -26,18 +26,20 @@ footer {
   @apply h-[100px] flex items-center;
 }
 .menu-item {
-  @apply font-medium text-white text-sm md:text-base uppercase cursor-pointer
+  @apply font-medium text-[var(--clr-button-hover)] md:text-white text-base md:text-sm md:text-base uppercase cursor-pointer
   relative inline-block;
 }
-
+.menu-item:hover {
+  @apply text-[var(--clr-focus)] md:text-white;
+}
 .menu-item::after {
   content: '';
-  @apply absolute left-0 bottom-0 h-[1px] w-0 bg-[var(--clr-button-hover)] transition-all duration-300;
+  @apply absolute left-0 bottom-0 h-[1px] w-0 md:bg-[var(--clr-button-hover)] transition-all duration-300;
 }
 
 .menu-item:not(.active):hover::after {
   width: 100%;
-}
+ }
 
 .menu-item.active {
   @apply font-bold text-[var(--clr-button-hover)];
