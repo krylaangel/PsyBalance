@@ -3,7 +3,7 @@ import Button from "@/components/ui/buttons/Button.jsx";
 import { BUTTONS_TEXT } from "@/constants/buttons.js";
 import Expanded from "@/common/Expanded.jsx";
 
-const PostPage = ({ id, handleDetails, description, title, category }) => {
+const PostSection = ({ id, handleDetails, description, title, category }) => {
   return (
     <li key={id} className="page card">
       <h3 className="page__title">{title}</h3>
@@ -22,4 +22,4 @@ const PostPage = ({ id, handleDetails, description, title, category }) => {
     </li>
   );
 };
-export default PostPage;
+export default PostSection;
