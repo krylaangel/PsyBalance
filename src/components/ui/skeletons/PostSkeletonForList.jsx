@@ -1,4 +1,4 @@
-import styles from "./PostSkeletonForList.module.css";
+import styles from "./postSkeletonForList.module.css";
 const PostSkeletonForList = () => {
   return (
     <>
