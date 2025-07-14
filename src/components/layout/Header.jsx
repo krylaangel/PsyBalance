@@ -51,14 +51,14 @@ const Header = () => {
             xmlns="http://www.w3.org/2000/svg"
           >
             <rect
-              className={`transition-transform duration-300 origin-center ${navOpen ? "rotate-45 translate-y-[6px]" : ""}`}
+              className={`transition-transform duration-600 origin-center ${navOpen ? "rotate-45 translate-y-[6px]" : ""}`}
               width="30"
               height="4"
               rx="2"
               fill="currentColor"
             />
             <rect
-              className={`transition-transform duration-300 origin-center ${navOpen ? "hidden" : ""}`}
+              className={`transition-transform duration-600 origin-center ease-in-out ${navOpen ? "opacity-0 scale-x-0" : "scale-x-100 opacity-100"}`}
               y="8"
               width="30"
               height="4"
@@ -66,7 +66,7 @@ const Header = () => {
               fill="currentColor"
             />
             <rect
-              className={`transition-transform duration-300 origin-center ${navOpen ? "-rotate-45 -translate-y-[6px]" : ""}`}
+              className={`transition-transform duration-600 origin-center ${navOpen ? "-rotate-45 -translate-y-[6px]" : ""}`}
               y="16"
               width="30"
               height="4"
