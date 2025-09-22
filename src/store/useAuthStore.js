@@ -1,35 +1,95 @@
 import { create } from "zustand";
 
-import { userStorageService } from "@/service/userStorageService.js";
+import axios from "axios";
 
 export const useAuthStore = create((set) => ({
-  user: userStorageService.getUser(),
+  user: JSON.parse(localStorage.getItem("user")) || null,
+  token: localStorage.getItem("token") || null,
+  loading: false,
+  error: null,
 
-  register: (newUser) => {
-    const users = userStorageService.getUsers();
-    if (users.find((user) => user.email === newUser.email)) {
-      throw new Error("User already exists");
+  register: async (newUser) => {
+    try {
+      set({
+        loading: true,
+        error: null,
+      });
+      const res = await axios.post("api/register", newUser, {
+        withCredentials: true,
+      });
+      localStorage.setItem("user", JSON.stringify(res.data.user));
+      localStorage.setItem("token", res.data.token);
+      set({ user: res.data.user, token: res.data.token, loading: false });
+    } catch (err) {
+      set({
+        error: err.response?.data?.message || "Помилка реєстрації",
+        loading: false,
+      });
+      throw err;
     }
-    const updatedUsers = [...users, newUser];
-    userStorageService.setUsers(updatedUsers);
-    userStorageService.setUser(newUser);
-    set({ user: newUser });
   },
 
-  login: ({ email, password }) => {
-    const users = userStorageService.getUsers();
-    const foundUser = users.find(
-      (u) => u.email === email && u.password === password,
-    );
-    if (!foundUser) {
-      throw new Error("Невірний email або пароль");
+  login: async ({ email, password }) => {
+    try {
+      set({ loading: true, error: null });
+      const res = await axios.post(
+        "api/login",
+        { email, password },
+        { withCredentials: true },
+      );
+      localStorage.setItem("user", JSON.stringify(res.data.user));
+      localStorage.setItem("token", res.data.token);
+      set({ user: res.data.user, token: res.data.token, loading: false });
+    } catch (err) {
+      set({
+        error: err.response?.data?.message || "Невірний email або пароль",
+        loading: false,
+      });
+      throw err;
     }
-    userStorageService.setUser(foundUser);
-    set({ user: foundUser });
   },
 
-  logout: () => {
-    userStorageService.removeUser();
-    set({ user: null });
+  logout: async () => {
+    try {
+      await axios.post("api/logout", {}, { withCredentials: true });
+      localStorage.removeItem("user");
+      localStorage.removeItem("token");
+      set({ user: null, token: null });
+    } catch (err) {
+      console.error("Logout error", err);
+    }
+  },
+  updateProfile: async (updates) => {
+    try {
+      set({ loading: true, error: null });
+      const token = localStorage.getItem("token");
+      const res = await axios.put("api/update", updates, {
+        headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
+      });
+      localStorage.setItem("user", JSON.stringify(res.data.user));
+      set({ user: res.data.user, loading: false });
+    } catch (err) {
+      set({
+        error: err.response?.data?.message || "Помилка оновлення профілю",
+        loading: false,
+      });
+      throw err;
+    }
+  },
+  fetchMe: async () => {
+    try {
+      set({ loading: true, error: null });
+      const res = await axios.get("/api/me", {
+        withCredentials: true,
+      });
+      localStorage.setItem("user", JSON.stringify(res.data));
+      set({ user: res.data, loading: false });
+    } catch (err) {
+      set({
+        error: err.response?.data?.message || "Не вдалося отримати користувача",
+        loading: false,
+      });
+    }
   },
 }));

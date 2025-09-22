@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 const Header = () => {
   const logout = useAuthStore((state) => state.logout);
   const user = useAuthStore((state) => state.user);
-
+  console.log("user:", user);
   const navigate = useNavigate();
   const [navOpen, setNavOpen] = useState(false);
   const toggleForm = () => {
@@ -34,7 +34,7 @@ const Header = () => {
   }, [navOpen]);
 
   return (
-    <header className="clamp flex justify-between gradient-layout__header relative">
+    <header className="clamp flex justify-between gradient-layout__header relative ">
       <div className="flex gap-x-2">
         <button
           className="cursor-pointer flex md:hidden"
@@ -51,14 +51,14 @@ const Header = () => {
             xmlns="http://www.w3.org/2000/svg"
           >
             <rect
-              className={`transition-transform duration-600 origin-center ${navOpen ? "rotate-45 translate-y-[6px]" : ""}`}
+              className={`transition-transform duration-500 origin-center ${navOpen ? "rotate-45 translate-y-[6px]" : ""}`}
               width="30"
               height="4"
               rx="2"
               fill="currentColor"
             />
             <rect
-              className={`transition-transform duration-600 origin-center ease-in-out ${navOpen ? "opacity-0 scale-x-0" : "scale-x-100 opacity-100"}`}
+              className={`transition-transform duration-500 origin-center ease-in-out ${navOpen ? "opacity-0 scale-x-0" : "scale-x-100 opacity-100"}`}
               y="8"
               width="30"
               height="4"
@@ -83,8 +83,12 @@ const Header = () => {
       <div className="space-x-4">
         {user ? (
           <>
-            <NavLink to="/profile" className="profile">
-              {user.firstName} {user.lastName}
+            <NavLink
+              to="/profile"
+              className="profile"
+              title="Перейти до профілю"
+            >
+              {user.name} {user.surname}
             </NavLink>
             <Button
               onClick={handleLogout}
