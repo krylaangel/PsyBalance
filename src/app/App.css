@@ -3,8 +3,8 @@
 
 @layer utilities {
   .clamp {
-    padding-right: clamp(10px, 5vw, 200px);
-    padding-left: clamp(10px, 5vw, 200px);
+    padding-left: max(16px, calc((100vw - 1040px) / 2));
+    padding-right: max(16px, calc((100vw - 1040px) / 2));
   }
 }
 @layer base {

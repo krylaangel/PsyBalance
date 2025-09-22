@@ -28,7 +28,13 @@ const ControlledFormReg = () => {
     setErrorMessage(errors);
     if (Object.keys(errors).length === 0) {
       try {
-        register({ firstName, lastName, email, year, password });
+        register({
+          name: firstName,
+          surname: lastName,
+          email,
+          birthYear: year,
+          password,
+        });
         alert("Реєстрація успішна!");
         setSubmitForm({ firstName, lastName, year, email, password });
         navigate("/");

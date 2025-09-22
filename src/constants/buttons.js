@@ -16,4 +16,5 @@ export const BUTTONS_TEXT = {
   Refresh: "Пройти знову",
   Test: "Пройти тест",
   Read: "Читати повністю",
+  Change: "Змінити",
 };

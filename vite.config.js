@@ -21,4 +21,15 @@ export default defineConfig({
       external: ["path", "fs", "url"],
     },
   },
+  server: {
+    port: 5173,
+    proxy: {
+      "/api": {
+        target: "http://localhost:8000",
+        defineConfig: true,
+        secure: false,
+        rewrite: (path) => path,
+      },
+    },
+  },
 });
