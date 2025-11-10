@@ -8,7 +8,8 @@ const Expanded = ({ children, className = "" }) => {
     <div className={className}>
       <div className={`${expanded ? "" : `line-clamp-2`}`}>{children}</div>
       <p
-        className="w-fit ml-auto text-[var(--clr-secondary)] hover:text-[var(--clr-layout)] hover:border-b-2 cursor-pointer"
+        className="w-fit ml-auto text-[var(--clr-secondary)] border-b-2 border-transparent hover:border-[var(--clr-layout)]
+hover:text-[var(--clr-layout)] hover:border-b-2 cursor-pointer"
         onClick={() => setExpanded(!expanded)}
       >
         {expanded ? "Згорнути" : "Читати більше"}

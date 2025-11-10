@@ -1,7 +1,7 @@
 @import "../../../../node_modules/tailwindcss";
 @tailwind utilities;
 .button {
-    @apply bg-[var(--clr-secondary)] text-[var(--clr-primary)] py-2 border-[var(--clr-primary)] border-1  rounded-[10px];
+    @apply bg-[var(--clr-secondary)] text-[var(--clr-primary)] py-2 px-5 border-[var(--clr-primary)] border-1  rounded-[10px];
 }
 
 .button:active {
