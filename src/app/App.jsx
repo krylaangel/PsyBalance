@@ -9,7 +9,7 @@ function App() {
     <div className="app">
       <BrowserRouter>
         <Header />
-        <main className="flex-grow">
+        <main className="flex-grow min-h-screen">
           <RoutesApp />
         </main>
         <Footer />

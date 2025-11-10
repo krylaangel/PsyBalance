@@ -18,7 +18,7 @@ ${isOpen ? "opacity-100 pointer-events-auto " : "opacity-0 pointer-events-none"}
             onClick={() => setNavOpen(false)}
             to={to}
             className={({ isActive }) =>
-              isActive ? "menu-item active" : "menu-item"
+              isActive ? "menu-item active" : "menu-item menu-item__color"
             }
           >
             {label}

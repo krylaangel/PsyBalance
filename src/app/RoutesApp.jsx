@@ -5,7 +5,7 @@ import UncontrolledFormFeedback from "@/components/forms/UncontrolledFormFeedbac
 import ControlledFormReg from "@/components/forms/ControlledFormReg.jsx";
 import PostsList from "@/components/pages/PostsList.jsx";
 import PostPageContainer from "@/components/containers/PostPageContainer.jsx";
-import UserProfile from "@/components/pages/UserProfile.jsx";
+import UserProfile from "@/components/pages/userProfile/UserProfile.jsx";
 import TestsList from "@/components/pages/TestsList.jsx";
 
 const RoutesApp = () => {
