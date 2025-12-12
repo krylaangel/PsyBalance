@@ -18,20 +18,16 @@
   font-family: "roboto", serif;
 }
 .app {
-  @apply flex flex-col;
+  @apply min-h-screen flex flex-col;
 }
 /*=====================================================================================*/
 header,
 footer {
   @apply h-[100px] flex items-center;
 }
-/*=====================================================================================*/
-.menu-item__color {
-  @apply text-[var(--clr-button-hover)] md:text-white
-}
 .menu-item {
-  @apply font-medium text-sm md:text-base uppercase cursor-pointer
-  relative md:inline-block;
+  @apply font-medium text-[var(--clr-button-hover)] md:text-white text-base md:text-sm md:text-base uppercase cursor-pointer
+  relative inline-block;
 }
 .menu-item:hover {
   @apply text-[var(--clr-focus)] md:text-white;
@@ -51,8 +47,6 @@ footer {
 .menu-item.active::after {
   @apply w-full
 }
-/*=====================================================================================*/
-
 .gradient-layout__header {
   @apply bg-gradient-to-r from-indigo-500 via-blue-300 to-white;
 }
@@ -60,8 +54,12 @@ footer {
   @apply bg-gradient-to-r from-indigo-500 via-blue-300 to-white;
 }
 /*=====================================================================================*/
-.profile__color {
-  @apply text-[var(--clr-layout)]
+.profile{
+  @apply font-medium text-[var(--clr-layout)] text-sm md:text-base uppercase
+  hover:text-[var(--clr-button-hover)] hover:border-b-2 cursor-pointer hover:border-[var(--clr-button-hover)];
+}
+.profile.active {
+  @apply font-bold text-[var(--clr-button-hover)] border-b-2 border-[var(--clr-button-hover)];
 }
 /*=====================================================================================*/
 .question {
@@ -97,7 +95,7 @@ footer {
 }
 /*=====================================================================================*/
 .user-survey-form {
-  @apply bg-white max-w-md mx-auto p-6 ;
+  @apply bg-white max-w-md mx-auto my-10 p-6 rounded-xl shadow-md;
 }
 .card{
   @apply rounded-2xl shadow-md my-10 backdrop-blur-md border border-black/10 w-full

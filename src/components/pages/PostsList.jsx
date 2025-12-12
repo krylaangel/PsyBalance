@@ -2,26 +2,23 @@ import { useNavigate, useSearchParams } from "react-router";
 import PostSection from "@/components/Sections/PostSection.jsx";
 import PostSkeletonForList from "@/components/ui/skeletons/PostSkeletonForList.jsx";
 import { ERRORS_STYLES } from "@/constants/errorStyle.js";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 import Button from "@/components/ui/buttons/Button.jsx";
 import { Pagination } from "@/components/ui/pagination/Pagination.jsx";
 
 import { PAGINATION_LIMIT } from "@/constants/pagination.js";
 import { useTotalStore } from "@/store/useTotalStore.js";
 import { usePostsStore } from "@/store/usePostsStore.js";
-import { BUTTONS_TEXT } from "@/constants/buttons.js";
-import CreatePostModal from "@/components/Sections/CreatePostModal.jsx";
 
 const PostsList = () => {
   const navigate = useNavigate();
-  const [open, setOpen] = useState(false);
-  let [searchParams, setSearchParams] = useSearchParams();
 
   const posts = usePostsStore((state) => state.posts);
   const error = usePostsStore((state) => state.errorPosts);
   const loading = usePostsStore((state) => state.loadingPosts);
   const getPosts = usePostsStore((state) => state.getPosts);
   const { total, fetchTotal } = useTotalStore();
+  let [searchParams, setSearchParams] = useSearchParams();
 
   const page = parseInt(searchParams.get("page"), 10) || 1;
   const limit = PAGINATION_LIMIT;
@@ -30,9 +27,7 @@ const PostsList = () => {
   const handlePostClick = (id) => {
     navigate(`/post/${id}`);
   };
-  const handleCreatePost = () => {
-    setOpen(true);
-  };
+
   const handlePageChange = useCallback(
     (newPage) => {
       setSearchParams({ page: String(newPage) });
@@ -60,11 +55,7 @@ const PostsList = () => {
 
   return (
     <div className="max-w-xl mx-auto p-6 bg-white card">
-      {open && <CreatePostModal close={() => setOpen(false)} />}
-      <div className="flex flex-wrap w-full justify-between">
-        <h2 className="text-2xl font-bold mb-4 text-gray-800">Статті</h2>
-        <Button onClick={handleCreatePost} text={BUTTONS_TEXT.Create} />
-      </div>
+      <h2 className="text-2xl font-bold mb-4 text-gray-800">Статті</h2>
       {error && <p className={ERRORS_STYLES.errorClasses}>Помилка: {error}</p>}
       {loading ? (
         <PostSkeletonForList />
@@ -72,17 +63,12 @@ const PostsList = () => {
         <ul className="space-y-4">
           {posts.map((post) => (
             <PostSection
-              createdAt={post.createdAt}
-              id={post._id}
-              key={post._id}
+              id={post.id}
+              key={post.id}
               category={post.category}
               title={post.title}
-              description={post.content}
-              tags={post.tags}
+              description={post.description}
               handleDetails={handlePostClick}
-              author={post.author}
-              authorId={post.authorId}
-              handleCreatePost={handleCreatePost}
             />
           ))}
         </ul>
