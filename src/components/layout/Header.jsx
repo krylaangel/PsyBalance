@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 const Header = () => {
   const logout = useAuthStore((state) => state.logout);
   const user = useAuthStore((state) => state.user);
+  console.log("user:", user);
   const navigate = useNavigate();
   const [navOpen, setNavOpen] = useState(false);
   const toggleForm = () => {
@@ -34,7 +35,7 @@ const Header = () => {
 
   return (
     <header className="clamp flex justify-between gradient-layout__header relative ">
-      <div className="flex gap-x-2 p-1">
+      <div className="flex gap-x-2">
         <button
           className="cursor-pointer flex md:hidden"
           onClick={() => {
@@ -74,7 +75,7 @@ const Header = () => {
             />
           </svg>
         </button>
-        <NavLink to="/" className="menu-item menu-item__color">
+        <NavLink to="/" className="menu-item">
           Головна
         </NavLink>
       </div>
@@ -84,7 +85,7 @@ const Header = () => {
           <>
             <NavLink
               to="/profile"
-              className="profile__color menu-item hidden md:flex"
+              className="profile"
               title="Перейти до профілю"
             >
               {user.name} {user.surname}

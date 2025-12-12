@@ -17,8 +17,4 @@ export const BUTTONS_TEXT = {
   Test: "Пройти тест",
   Read: "Читати повністю",
   Change: "Змінити",
-  UsersInfo: "Інформація",
-  ResultsTests: "Результати тестів",
-  Close: "Закрити",
-  Create: "Створити",
 };

@@ -1,33 +1,33 @@
 import axios from "axios";
 
+import { SERVER_API_URL } from "@/constants/serviseApi.js";
+
 export const postsService = {
   fetchPosts: async (page, limit) => {
-    const response = await axios.get(`/api/posts?page=${page}&limit=${limit}`);
-    return response.data.articles;
+    const response = await axios.get(
+      `${SERVER_API_URL}/products?limit=${limit}&skip=${(page - 1) * limit}`,
+    );
+    return response.data.products;
   },
 
-  fetchPost: async (_id) => {
-    const response = await axios.get(`/api/posts/${_id}`);
-    return response.data.article;
-  },
-  fetchTotal: async () => {
-    const response = await axios.get(`/api/posts?page=1&limit=1`);
-    return response.data.pagination?.total || 0;
-  },
-  fetchDelete: async (_id) => {
-    const response = await axios.delete(`/api/posts/${_id}`);
+  fetchPost: async (id) => {
+    const response = await axios.get(
+      `${SERVER_API_URL}/products/${Number(id)}`,
+    );
     return response.data;
   },
-  fetchCreatePost: async (data) => {
-    const response = await axios.post(`/api/posts`, data, {
-      withCredentials: true,
-    });
-    return response.data;
-  },
-  fetchUpdatePost: async (_id, data) => {
-    const response = await axios.patch(`/api/posts/${_id}`, data, {
-      withCredentials: true,
-    });
-    return response.data;
+  fetchNeighborPosts: async (id) => {
+    const prevId = Number(id) - 1;
+    const nextId = Number(id) + 1;
+
+    const [prevRes, nextRes] = await Promise.allSettled([
+      axios.get(`${SERVER_API_URL}/products/${prevId}`),
+      axios.get(`${SERVER_API_URL}/products/${nextId}`),
+    ]);
+
+    return {
+      prevPost: prevRes.status === "fulfilled" ? prevRes.value.data : null,
+      nextPost: nextRes.status === "fulfilled" ? nextRes.value.data : null,
+    };
   },
 };
